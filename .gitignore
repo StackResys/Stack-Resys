@@ -1,0 +1,3 @@
+# the data directory will not be committed
+data
+.DS_Store
