@@ -2,19 +2,7 @@
 \usepackage{nips11submit_e,times}
 %\documentstyle[nips10submit_09,times,art10]{article} % For LaTeX 2.09
 
-
-\title{Machine Learning Project Proposal}
-
-
-\author{
-David S.~Hippocampus\thanks{ Use footnote for providing further information
-about author (webpage, alternative address)---\emph{not} for acknowledging
-funding agencies.} \\
-Department of Computer Science\\
-Cranberry-Lemon University\\
-Pittsburgh, PA 15213 \\
-\texttt{hippo@cs.cranberry-lemon.edu} \\
-}
+\title{Predicting the Tags of Questions in StackOverflow}
 
 \newcommand{\fix}{\marginpar{FIX}}
 \newcommand{\new}{\marginpar{NEW}}
@@ -23,12 +11,35 @@ Pittsburgh, PA 15213 \\
 
 \begin{document}
 
-
 \maketitle
+\section{Overview}
+As the world's most popular programmer Q\&A community, StackOverflow {ref} is a showcase of a successful usage of the tag system, where each question could have one or more questions to indicate its "topics". Tags offers rich yet flexible semantic information about questions. In this project, we aim at predicting the tags of new questions by mining the large amount of tagged questions.
 
-\section{Submission of papers to NIPS 2011}
-\begin{itemize}
-\item Hello\\
-Yes, here you are.
-\end {itemize}
+Moreover, we can also extend the tags to the user, where each user's tags will be determined the questions she asked/answered/favorited/voted. By doing this we can make personalized recommendation of new questions by calculating the similarity between user and the question.
+
+\section{Dataset}
+Ever since its launch, StackOverflow now have 2.2 millions questions, 4.8 million answers and over 30 thousands of tags. StackOverflow now publishes its updated dataset {ref} every 3 months.
+
+\section{Investigation}
+% Naïve Bayes
+% Decision Tree
+% Decision rule classifiers
+% Logistic Regression
+% Linear Regression
+% Example-based k-NN classifier
+% Rocchio classifier
+% Neural Networks
+% Support Vector Machines
+
+\section{Project Roadmap}
+Here's the roadmap of our project:
+\begin{enumerate}
+    \item Data Observation(Before mid-term): Oberserve the data and pre-processing the data.
+    \item Investigation(Before mid-term): Investigate several promising text classification methods.
+    \item Feature Selection(Before mid-term): By analyzing the data, we will select the features that balance the performance and the accuracy.
+    \item Development of models(70\% done before mid-term)
+    \item Experiments(After mid-term): in our experiments, we will focus on the performance analysis, feature analysis, error analysis and comparison of methods.
+    \item Demo(optional): A demo that can suggest tags while asking a new question and make personalized recommendation of interested questions and similiar users.
+\end{enumerate}
 \end{document}
+
