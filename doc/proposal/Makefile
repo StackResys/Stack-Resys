@@ -1,9 +1,11 @@
+DOC=proposal
+.PHONY: view clean
 
-.PHONY: view
-
-main.pdf: *.tex *.sty
-	pdflatex main.tex
+$(DOC).pdf: *.tex *.sty
+	pdflatex $(DOC).tex
 
 view:
-	evince main.pdf&
+	evince $(DOC).pdf&
 
+clean:
+	rm -rf $(DOC).aux $(DOC).pdf *.log
