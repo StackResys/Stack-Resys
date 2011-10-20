@@ -13,23 +13,15 @@
 
 \maketitle
 \section{Overview}
-As the world's most popular programmer Q\&A community, StackOverflow {ref} is a showcase of a successful usage of the tag system, where each question could have one or more questions to indicate its "topics". Tags offers rich yet flexible semantic information about questions. In this project, we aim at predicting the tags of new questions by mining the large amount of tagged questions.
+As the world's most popular programmer Q\&A community, StackOverflow {ref} is a showcase of the successful usage of the tag system, where each question could have one or more questions to indicate its "topics". As a more flexible way of categorizing the text, the tags also reveals rich semantic information about questions. In this project, we focused on the prediction the tags of new questions by mining the large amount of tagged questions.
 
-Moreover, we can also extend the tags to the user, where each user's tags will be determined the questions she asked/answered/favorited/voted. By doing this we can make personalized recommendation of new questions by calculating the similarity between user and the question.
+Furthermore, a tags predictor of high accuracy also enables us to discover user's taste of questions. For example, by examing the questions a user asked/answered/favorited/voted, we can assign her the weights for different tags. The weight could therefore become an effective indicator of the user's interest. As a result, we can use this information to recommend new question or discover other user who share the similiar interests.
 
 \section{Dataset}
-Ever since its launch, StackOverflow now have 2.2 millions questions, 4.8 million answers and over 30 thousands of tags. StackOverflow now publishes its updated dataset {ref} every 3 months.
+StackOverflow has published their dataset under CC(Common Creative) Licence. The dataset includes over 2.2 millions questions, 4.8 million answers and 30 thousands of tags are created in StackOverflow.
 
 \section{Investigation}
-% Naïve Bayes
-% Decision Tree
-% Decision rule classifiers
-% Logistic Regression
-% Linear Regression
-% Example-based k-NN classifier
-% Rocchio classifier
-% Neural Networks
-% Support Vector Machines
+With the investigation of popular text classifcation methods, we found these approaches are promising in the processing of multi-labeled supervised text classification (1) Decision Tree (2) Naïve Bayes (3) Support Vector Machines. In our project we will adopt and improve these methods for the classification tasks.
 
 \section{Project Roadmap}
 Here's the roadmap of our project:
