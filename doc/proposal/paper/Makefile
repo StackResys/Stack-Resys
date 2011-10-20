@@ -1,7 +1,7 @@
 
 .PHONY: view
 
-main.pdf: *.tex 
+main.pdf: *.tex *.sty
 	pdflatex main.tex
 
 view:
