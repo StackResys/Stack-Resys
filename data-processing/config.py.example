@@ -1,0 +1,19 @@
+import pymongo
+
+DB = {
+    "server": "localhost",
+    "port": 27017,
+
+    "database": "stack",
+    "collection": "questions",
+
+    "indices": [
+        ("tag", pymongo.ASCENDING),
+        ("id", pymongo.DESCENDING)
+     ]
+}
+
+INPUT_FILE = {
+    "file_path": "../data/Content/stackoverflow/sample.xml",
+}
+
