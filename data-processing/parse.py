@@ -43,7 +43,14 @@ class PostEventHandler(ContentHandler):
 
        database = db_config["database"]
        collection = db_config["collection"]
-       self.questions = self._connection[database][collection]
+       self.questions = \
+               self._connection[database][collection["questions"]]
+       self.vectors = \
+               self._connection[database][collection["vectors"]]
+       self.tags = \
+               self._connection[database][collection["tags"]]
+       self.words = \
+               self._connection[database][collection["words"]]
 
        if override:
            self.questions.remove()

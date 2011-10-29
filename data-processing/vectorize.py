@@ -14,7 +14,7 @@ class Vectorizor:
         self.stop_words = stop_words
 
         # Misc
-        self.word_matcher = re.compile("[\w\d+#@$]{2,15}")
+        self.word_matcher = re.compile("[\w\d+#@$']{2,15}")
 
     def vectorize(self, doc, tags):
         self._update_tags(tags)
