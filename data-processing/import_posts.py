@@ -5,6 +5,7 @@ import post_handler
 import db
 from importor import *
 import time
+import sys
 
 # -- Statistical information
 def dump_stat(dic, path):
@@ -13,15 +14,16 @@ def dump_stat(dic, path):
     for item, info in sorted_items:
         output.write("%s: %s\n" % (item, info[1]))
 
+epoch = time.clock()
 def report_progress(i):
     if i == 0:
         return
     if i % 100 == 0:
         print ".",
+        sys.stdout.flush()
     if i % 1000 == 0:
-        print " -- %d" % i
-
-# -- Data Persistence
+        print " -- %d -- %f" % (i, time.clock() - epoch)
+        sys.stdout.flush()
 
 # -- Entry
 if __name__ == "__main__":
@@ -29,7 +31,9 @@ if __name__ == "__main__":
     error_handler = post_handler.ErrorHandler()
     post_handler = post_handler.PostHandler()
 
-    db = db.Db(config.DB, True)
+    erase_existing_data = "erase_existing_data" in config.DB and\
+                          config.DB["erase_existing_data"]
+    db = db.Db(config.DB, erase_existing_data)
     tags = {}
     words = {}
 
@@ -39,20 +43,21 @@ if __name__ == "__main__":
                          config.INPUT_FILE["stop_words"],
                          tags, words))
 
+    print "pre-processing", time.clock() - epoch
+    epoch = time.clock()
     with open(filename) as posts_xml:
         start = config.INPUT_FILE["record_start"]
-        end = config.INPUT_FILE["record_end"]
-        print ("Range: [%d, %d)"% (start, end))
+        count = config.INPUT_FILE["record_count"]
+        print ("Range: [%d, %d)"% (start, start + count))
 
-        start_time = time.clock()
         for i, line in enumerate(posts_xml):
             if i < start:
                 continue
-            if i >= end:
+            if i >= start + count:
                 break
 
             if i == start:
-                print "pre-locate time:", time.clock() - start_time
+                print "pre-locate time:", time.clock() - epoch
                 start_time = time.clock()
             # TODO: dirty way to filter unwanted tags
             if not line.lstrip().startswith(\

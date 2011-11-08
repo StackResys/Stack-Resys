@@ -12,9 +12,15 @@ DB = {
         "vectors": "vectors",
     },
 
-    "indices": [
-        ("id", pymongo.DESCENDING)
-     ]
+    "indices": {
+        "questions": [("id", pymongo.DESCENDING)],
+        "tags": [("id", pymongo.DESCENDING)],
+        "words": [("id", pymongo.DESCENDING),
+                  ("count", pymongo.DESCENDING)],
+        "vectors": [("id", pymongo.DESCENDING)],
+     },
+
+    "erase_existing_data": False
 }
 
 INPUT_FILE = {
@@ -22,7 +28,7 @@ INPUT_FILE = {
     "stop_words": "stopwords.txt",
     "stat_dir": "stat",
     "record_start": 0,
-    "record_end": 50000,
+    "record_count": 10000,
     "record_tag": "row"
 }
 

@@ -20,13 +20,12 @@ class Db:
        # delete all data if required
        if delete_exist_data:
            self._delete_existing_data()
-
        # Creating the index
        indexes = db_config["indices"]
        for collection, index in indexes.items():
-           print collection, index
-           print self.connection[database][collection]
-           self.connection[database][collection].create_index(index)
+           collection = self.connection[database][collection]
+           collection.create_index(index)
+
 
     # -- Write back data
     def write_stat_info_back(self, tags, words):
