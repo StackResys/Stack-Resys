@@ -5,19 +5,24 @@ DB = {
     "port": 27017,
 
     "database": "stack",
-    "collection": "questions",
+    "collection": {
+        "questions": "questions",
+        "tags": "tags",
+        "words": "words",
+        "vectors": "vectors",
+    },
 
     "indices": [
-        ("tag", pymongo.ASCENDING),
         ("id", pymongo.DESCENDING)
      ]
 }
 
 INPUT_FILE = {
-    "input": "../data/Content/stackoverflow/sample.xml",
+    "input": "../data/Content/stackoverflow/posts.xml",
     "stop_words": "stopwords.txt",
     "stat_dir": "stat",
     "record_start": 0,
-    "record_end": 500000
+    "record_end": 50000,
+    "record_tag": "row"
 }
 

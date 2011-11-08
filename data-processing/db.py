@@ -23,10 +23,29 @@ class Db:
 
        # Creating the index
        indexes = db_config["indices"]
-       self.question_table.create_index(indexes)
+       for collection, index in indexes.items():
+           print collection, index
+           print self.connection[database][collection]
+           self.connection[database][collection].create_index(index)
+
+    # -- Write back data
+    def write_stat_info_back(self, tags, words):
+        self._write_back(self.tags_table, tags, "tag")
+        self._write_back(self.words_table, words, "word")
+
+    # -- Reading data from MongoDB
+    def _write_back(self, table, info, key_name):
+       table.remove()
+       for key, info in info.items():
+           new_item = {
+                   key_name: key,
+                   "id": info[0],
+                   "count": info[1] }
+           table.insert(new_item)
 
     def _delete_existing_data(self):
        self.question_table.remove()
        self.tags_table.remove()
        self.words_table.remove()
        self.vectors_table.remove()
+

@@ -21,20 +21,6 @@ def report_progress(i):
         print " -- %d" % i
 
 # -- Data Persistence
-# -- Write back data
-def write_stat_info_back(db):
-    _write_back(db.tags_table, tags, "tag")
-    _write_back(db.words_table, words, "word")
-
-# -- Reading data from MongoDB
-def _write_back(table, info, key_name):
-    table.remove()
-    for key, info in info.items():
-        new_item = {
-                key_name: key,
-                "id": info[0],
-                "count": info[1] }
-        table.insert(new_item)
 
 # -- Entry
 if __name__ == "__main__":
@@ -42,10 +28,12 @@ if __name__ == "__main__":
     error_handler = post_handler.ErrorHandler()
     post_handler = post_handler.PostHandler()
 
-    db = db.Db(config.DB, True)
+    db = db.Db(config.DB, False)
     tags = {}
     words = {}
-    post_handler.on_post.append(make_post_importer(db))
+
+    # TODO: Now we only interested in the vector, not the content
+    # post_handler.on_post.append(make_post_importer(db))
     post_handler.on_post.append(make_vector_importer(db,
                          config.INPUT_FILE["stop_words"],
                          tags, words))
@@ -69,13 +57,14 @@ if __name__ == "__main__":
             parseString(line, post_handler, error_handler)
             report_progress(i)
 
-    write_stat_info_back(db)
+
+    # Write the data to the stat file
+    db.write_stat_info_back(tags, words)
 
     stat_dir = config.INPUT_FILE["stat_dir"]
     if not os.path.exists(stat_dir):
         os.makedirs(stat_dir)
 
-    print tags
     dump_stat(tags,
               os.path.join(stat_dir, "tags.stat"))
     dump_stat(words,
