@@ -20,8 +20,8 @@ def make_vector_importer(db, stop_words_file, all_tags = {}, words = {}):
             vector, tags = vectorizor.vectorize(post["Body"], {})
             parent_id = post["ParentId"]
             db.vectors_table.update(
-                    {"id": parent_id},
-                    {"$push": {"posts": vector.items()}})
+                     {"id": parent_id},
+                     {"$push": {"posts": vector.items()}})
 
     return _import_vector
 

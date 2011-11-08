@@ -4,6 +4,7 @@ import config
 import post_handler
 import db
 from importor import *
+import time
 
 # -- Statistical information
 def dump_stat(dic, path):
@@ -15,9 +16,9 @@ def dump_stat(dic, path):
 def report_progress(i):
     if i == 0:
         return
-    if i % 200 == 0:
+    if i % 100 == 0:
         print ".",
-    if i % 2000 == 0:
+    if i % 1000 == 0:
         print " -- %d" % i
 
 # -- Data Persistence
@@ -28,7 +29,7 @@ if __name__ == "__main__":
     error_handler = post_handler.ErrorHandler()
     post_handler = post_handler.PostHandler()
 
-    db = db.Db(config.DB, False)
+    db = db.Db(config.DB, True)
     tags = {}
     words = {}
 
@@ -43,12 +44,16 @@ if __name__ == "__main__":
         end = config.INPUT_FILE["record_end"]
         print ("Range: [%d, %d)"% (start, end))
 
+        start_time = time.clock()
         for i, line in enumerate(posts_xml):
             if i < start:
                 continue
             if i >= end:
                 break
 
+            if i == start:
+                print "pre-locate time:", time.clock() - start_time
+                start_time = time.clock()
             # TODO: dirty way to filter unwanted tags
             if not line.lstrip().startswith(\
                     "<%s" %
@@ -56,6 +61,8 @@ if __name__ == "__main__":
                 continue
             parseString(line, post_handler, error_handler)
             report_progress(i)
+
+        print "processing time:", time.clock() - start_time
 
 
     # Write the data to the stat file
