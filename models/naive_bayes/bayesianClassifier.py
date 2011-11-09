@@ -25,11 +25,13 @@ class BayesianClassifier:
                 self._updateCount(\
                         self.labelCount, label, count)
 
-    def CLassify(self, features):
-        scores = sorted(((label, self.getScore(features, label)) for \
-                          label in self.labelCount.keys()), \
-                          key = lambda x: x[1],
-                          reverse = True)
+    def classify(self, features):
+        # scores = sorted(((label, self.getScore(features, label)) for \
+        scores = sorted((label for \
+                        label in self.labelCount.keys()), \
+                        #key = lambda x: x[1],\
+                        key = lambda x: x,
+                        reverse = True)
 
         return scores
 
@@ -66,8 +68,8 @@ if __name__ == "__main__":
     classifier.train(split("life life life good"), ["life"])
     classifier.train(split("money doesn't make friend with don't give up life, you"), ["finance", "life"])
 
-    print classifier.CLassify(split("money wall is finance"))
-    print classifier.CLassify(split("life is good"))
+    print classifier.classify(split("money wall is finance"))
+    print classifier.classify(split("life is good"))
 
 
 
