@@ -1,9 +1,10 @@
 from vectorizor import Vectorizor
+import db_access
 import time
 import sys
 
 def make_vector_importer(db, stop_words_file, all_tags = {}, words = {}):
-    _read_stat_info_from_db(db, all_tags, words)
+    db_access.read_stat_info_from_db(db, all_tags, words)
     stop_words = [line[:-1] for line in open(stop_words_file)]
     vectorizor = Vectorizor(all_tags, words, stop_words)
 
@@ -38,15 +39,4 @@ def make_post_importer(db):
         else:
             assert(False)
     return _import_post
-
-def _read_stat_info_from_db(db, tags, words):
-    epoch = time.clock()
-    _read_meta_data(tags, db.tags_table, "tag")
-    print "time elapsed", time.clock() - epoch
-    _read_meta_data(words, db.words_table, "word", {"count": {"$gt": 1}})
-    print "time elapsed", time.clock() - epoch
-
-def _read_meta_data(stat, table, key_name, condition={}):
-    for info in table.find(condition):
-        stat[info[key_name]] = ([info["id"], info["count"]])
 

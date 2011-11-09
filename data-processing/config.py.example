@@ -26,9 +26,15 @@ DB = {
 INPUT_FILE = {
     "input": "../data/Content/stackoverflow/posts.xml",
     "stop_words": "stopwords.txt",
-    "stat_dir": "stat",
-    "record_start": 0,
+    "record_start": 160001,
     "record_count": 10000,
     "record_tag": "row"
 }
 
+OUTPUT_FILE = {
+    "stat_dir": "stat",
+    "word_filter": {},
+    "tag_filter": {}
+    # "word_filter": {"count": {"$gt": 5}},
+    # "tag_filter": {"count": {"$gt": 3}}
+}

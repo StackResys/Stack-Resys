@@ -1,18 +1,14 @@
-from xml.sax import ContentHandler, parseString, SAXParseException
-import os
-import config
-import post_handler
-import db
 from importor import *
-import time
+from xml.sax import ContentHandler, parseString, SAXParseException
+import config
+import db
+import os
+import post_handler
 import sys
+import time
+import db_access
 
 # -- Statistical information
-def dump_stat(dic, path):
-    sorted_items = sorted(dic.items(), key=lambda v: v[1][1], reverse = True)
-    output = open(path, "w")
-    for item, info in sorted_items:
-        output.write("%s: %s\n" % (item, info[1]))
 
 epoch = time.clock()
 def report_progress(i):
@@ -73,12 +69,12 @@ if __name__ == "__main__":
     # Write the data to the stat file
     db.write_stat_info_back(tags, words)
 
-    stat_dir = config.INPUT_FILE["stat_dir"]
+    stat_dir = config.OUTPUT_FILE["stat_dir"]
     if not os.path.exists(stat_dir):
         os.makedirs(stat_dir)
 
-    dump_stat(tags,
+    db_access.dump_stat(tags,
               os.path.join(stat_dir, "tags.stat"))
-    dump_stat(words,
+    db_access.dump_stat(words,
               os.path.join(stat_dir, "words.stat"))
 
