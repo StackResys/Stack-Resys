@@ -6,5 +6,5 @@ INPUT = {
 }
 
 CLASSIFIER = {
-    "beta" : 0.05
+    "beta" : 0.005
 }

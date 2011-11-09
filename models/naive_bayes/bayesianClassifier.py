@@ -27,10 +27,9 @@ class BayesianClassifier:
 
     def classify(self, features):
         # scores = sorted(((label, self.getScore(features, label)) for \
-        scores = sorted((label for \
+        scores = sorted(((label, self.getScore(features, label)) for \
                         label in self.labelCount.keys()), \
-                        #key = lambda x: x[1],\
-                        key = lambda x: x,
+                        key = lambda x: x[1], \
                         reverse = True)
 
         return scores
@@ -58,6 +57,7 @@ class BayesianClassifier:
         if n1 == 0:
             return 0
         return math.log(n1 * 1.0 / n2, 2)
+
 
 if __name__ == "__main__":
     def split(text):

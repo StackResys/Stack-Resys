@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
     lines = enumerate(open(os.path.join(data_path, "vectors.stat")))
     for index, line in lines:
-        if index > 5000:
+        if index > 20000:
             break
         if index % 200 == 0:
             print "."
@@ -52,7 +52,7 @@ if __name__ == "__main__":
         classifier.train(words, tags)
 
     for index, line in lines:
-        if index > 5005:
+        if index > 20015:
             break
         segments = line[:-1].split(';')
         tags = to_ints(segments[1].split(), lambda t: t in all_tags)
@@ -61,11 +61,13 @@ if __name__ == "__main__":
         words = dict(elem for elem in words if (elem[0] in all_words))
 
         print "Expected:", get_named_tags(tags, all_tags)
-        print "Actual:", get_named_tags(classifier.classify(words)[:5], all_tags)
+        actual = classifier.classify(words)
+        expected_tags = (tag for tag, score in actual[:10])
+        dic = {}
+        for index, item in enumerate(actual):
+            dic[item[0]] = (item[1], index)
 
-
-
-
-
+        print "Actual:", get_named_tags(expected_tags, all_tags)
+        print "Rank:", [(w, dic[w][1]) for w in tags if w in dic]
 
 
