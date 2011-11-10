@@ -70,7 +70,7 @@ if __name__ == "__main__":
             parseString(line, post_handler, error_handler)
             report_progress(i)
 
-        print "processing time:", time.clock() - start_time
+        print "\nprocessing time:", time.clock() - start_time
 
 
     # Write the data to the stat file
