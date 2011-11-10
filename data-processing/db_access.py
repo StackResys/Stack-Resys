@@ -22,8 +22,11 @@ def dump_stat(stat, path):
 def dump_vectors(db, path, vector_filter = {}, limit = sys.maxint):
     output = open(path, "w")
     for index, vector in enumerate(db.vectors_table.find(vector_filter)):
-        if index % 200 == 0:
-            print "."
+        if index != 0 and index % 200 == 0:
+            print ".",
+            sys.stdout.flush()
+        if index % 2000 == 0:
+            print
             sys.stdout.flush()
         merged = _merge_post(vector["posts"])
         tags = vector["tags"]
@@ -45,23 +48,4 @@ def _output_vector(vector, tags, output):
         output.write(str(tag))
         output.write(' ')
     output.write("\n")
-
-if __name__ == "__main__":
-    tags = {}
-    words = {}
-    db = db.Db(config.DB, False)
-
-    # -- Read
-    out_config = config.OUTPUT_FILE
-    # read tags and words
-    read_stat_info_from_db(db, tags, words,
-                           out_config["word_filter"],
-                           out_config["tag_filter"])
-
-    # -- Write
-    stat_dir = config.OUTPUT_FILE["stat_dir"]
-    dump_vectors(db, os.path.join(stat_dir, "vectors.stat"))
-
-    dump_stat(tags, os.path.join(stat_dir, "tags.stat"))
-    dump_stat(words, os.path.join(stat_dir, "words.stat"))
 

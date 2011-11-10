@@ -16,6 +16,8 @@ def make_vector_importer(db, stop_words_file, all_tags = {}, words = {}):
             vector_doc = \
             {
                 "id": post["Id"],
+                # title can help us to locate the original question via the www
+                "title": post["Title"],
                 "posts": [vector.items()],
                 "tags": tags
             }
