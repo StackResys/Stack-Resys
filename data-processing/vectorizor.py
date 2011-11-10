@@ -45,4 +45,5 @@ class Vectorizor:
 
     def _split_words(self, doc):
         return (self.stemmer(w) for w
-                in self.word_matcher.findall(doc.lower()))
+                in self.word_matcher.findall(doc.lower())
+                if len(w) > 2 and len(w) < 12)
