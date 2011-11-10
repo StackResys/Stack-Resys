@@ -1,5 +1,6 @@
 import config
 import re
+import porterstemmer
 
 class Vectorizor:
     """ Converting a document to the word vector """
@@ -10,6 +11,7 @@ class Vectorizor:
         self.stop_words = stop_words
 
         # Misc
+        self.stemmer = porterstemmer.Stemmer()
         self.word_matcher = re.compile(
                 "[\w\d+#@$]{2,8}[a-zA-Z][\w\d+#@$]{2,8}")
 
@@ -42,5 +44,5 @@ class Vectorizor:
         return item
 
     def _split_words(self, doc):
-        return self.word_matcher.findall(doc.lower())
-
+        return (self.stemmer(w) for w
+                in self.word_matcher.findall(doc.lower()))
