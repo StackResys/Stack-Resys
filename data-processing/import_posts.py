@@ -10,16 +10,23 @@ import db_access
 
 # -- Statistical information
 
+# TODO: the following variable is global and confusing
+# Try to remove it later
 epoch = time.clock()
+local_epoch = time.clock()
+
 def report_progress(i):
+    global local_epoch
+    STEP = 150
     if i == 0:
         return
-    if i % 100 == 0:
+    if i % STEP == 0:
         print ".",
         sys.stdout.flush()
-    if i % 1000 == 0:
-        print " -- %d -- %f" % (i, time.clock() - epoch)
+    if i % STEP * 10 == 0:
+        print " -- %d -- %f" % (i, time.clock() - local_epoch)
         sys.stdout.flush()
+        local_epoch = time.clock()
 
 # -- Entry
 if __name__ == "__main__":
