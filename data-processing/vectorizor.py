@@ -13,7 +13,7 @@ class Vectorizor:
         # Misc
         self.stemmer = porterstemmer.Stemmer()
         self.word_matcher = re.compile(
-                "[\w\d+#@$]{2,8}[a-zA-Z][\w\d+#@$]{2,8}")
+                "[\w\d+#@$]{2,6}[a-zA-Z][\w\d+#@$]{2,6}")
 
     def vectorize(self, doc, tags):
         normalized_tags = self._normalize_tags(tags)

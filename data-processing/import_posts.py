@@ -23,7 +23,7 @@ def report_progress(i):
     if i % STEP == 0:
         print ".",
         sys.stdout.flush()
-    if i % STEP * 10 == 0:
+    if i % (STEP * 10) == 0:
         print " -- %d -- %f" % (i, time.clock() - local_epoch)
         sys.stdout.flush()
         local_epoch = time.clock()
