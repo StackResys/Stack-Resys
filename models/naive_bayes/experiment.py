@@ -2,6 +2,7 @@ import bayesianClassifier
 import config
 import os
 import sys
+import persistence
 
 def read_meta_data(path, threshold):
     result = {}
@@ -20,32 +21,23 @@ def to_ints(array, filter = lambda x: True):
 def get_named_tags(tags, all_tags):
     return [all_tags[tag][0] for tag in tags]
 
-if __name__ == "__main__":
+def make_configured_classifier(all_tags, all_words):
     # Read meta-data
     conf = config.INPUT
-    word_threshold = conf["word_threshold"]
-    tag_threshold = conf["tag_threshold"]
-    data_path = conf["data_path"]
-
-    all_tags = read_meta_data(os.path.join(data_path, "tags.stat"),
-                          tag_threshold)
-    all_words = read_meta_data(os.path.join(data_path, "words.stat"),
-                           word_threshold)
 
     # Training
     conf = config.CLASSIFIER
     classifier = bayesianClassifier.BayesianClassifier(conf["beta"])
 
-    lines = enumerate(open(os.path.join(data_path, "vectors.stat")))
     train_count = conf["train_count"]
-    test_count = conf["test_count"]
+    lines = enumerate(open(os.path.join(base_path, "train.stat")))
     for index, line in lines:
         if index > train_count:
             break
-        if index % 500 == 0:
+        if index % 500 == 0 and index != 0:
             print ".",
             sys.stdout.flush()
-        if index % 5000 == 0:
+        if index % 5000 == 0 and index != 0:
             print "\n"
             sys.stdout.flush()
         segments = line[:-1].split(';')
@@ -55,9 +47,30 @@ if __name__ == "__main__":
         words = dict(elem for elem in words if (elem[0] in all_words))
 
         classifier.train(words, tags)
+    return classifier
 
+if __name__ == "__main__":
+    base_path = config.INPUT["base_path"]
+    # Readings
+    conf = config.INPUT
+    tag_threshold = conf["tag_threshold"]
+    word_threshold = conf["word_threshold"]
+    all_tags = read_meta_data(os.path.join(base_path, "tags.stat"),
+                          tag_threshold)
+    all_words = read_meta_data(os.path.join(base_path, "words.stat"),
+                           word_threshold)
+
+    model_path = os.path.join(base_path, "bayes.model")
+    if not config.CLASSIFIER["rewrite_model"] and os.path.exists(model_path):
+        classifier = persistence.load(model_path)
+    else:
+        classifier = make_configured_classifier(all_tags, all_words)
+
+    # -- Test
+    lines = enumerate(open(os.path.join(base_path, "test.stat")))
+    test_count = config.CLASSIFIER["test_count"]
     for index, line in lines:
-        if index > train_count + test_count:
+        if index > test_count:
             break
         segments = line[:-1].split(';')
         tags = to_ints(segments[2].split(), lambda t: t in all_tags)
@@ -68,12 +81,17 @@ if __name__ == "__main__":
         print "\n------\nId:", segments[0]
         print "Expected:", get_named_tags(tags, all_tags)
         actual = classifier.classify(words)
-        expected_tags = (tag for tag, score in actual[:10])
+        actual_tags = (tag for tag, score in actual[:10])
         dic = {}
         for index, item in enumerate(actual):
             dic[item[0]] = (item[1], index)
 
-        print "Actual:", get_named_tags(expected_tags, all_tags)
+        print "Actual:", get_named_tags(actual_tags, all_tags)
         print "Rank:", [(w, dic[w][1]) for w in tags if w in dic]
+
+    if config.CLASSIFIER["rewrite_model"]:
+        print "\nPersistence"
+        persistence.save(classifier, model_path)
+
 
 

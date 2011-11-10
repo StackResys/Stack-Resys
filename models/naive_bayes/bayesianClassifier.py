@@ -16,17 +16,17 @@ class BayesianClassifier:
     def train(self, features, labels):
         self.total += sum(features.values())
         # Update the counting of the attributes under differnt labels
-        for features, count in features.items():
+        for feature, count in features.items():
             self._updateCount(\
-                    self.featureCount, features, count)
+                    self.featureCount, feature, count)
             for label in labels:
-                self._updateCount(\
-                        self.labelFeatureCount, (label, features), count)
-                self._updateCount(\
-                        self.labelCount, label, count)
+                label_wc = self.labelFeatureCount.setdefault(label, {})
+                label_wc.setdefault(feature, 0)
+                label_wc[feature] += count
+
+                self._updateCount(self.labelCount, label, count)
 
     def classify(self, features):
-        # scores = sorted(((label, self.getScore(features, label)) for \
         scores = sorted(((label, self.getScore(features, label)) for \
                         label in self.labelCount.keys()), \
                         key = lambda x: x[1], \
@@ -42,8 +42,9 @@ class BayesianClassifier:
         for feature, count in features.items():
                 key = (label, feature)
                 fCount = 0
-                if key in self.labelFeatureCount:
-                    fCount =self.labelFeatureCount[key]
+                if label in self.labelFeatureCount and \
+                   feature in self.labelFeatureCount[label]:
+                    fCount =self.labelFeatureCount[label][feature]
 
                 score = self._getScoreOfOneFeature(fCount + self.beta, lCount + fc * self.beta)
                 totalScore += count * score

@@ -2,11 +2,13 @@
 INPUT = {
     "word_threshold": 8,
     "tag_threshold": 5,
-    "data_path": "../../data/stat/"
+    "base_path": "../../data/stat/",
+    "path": "../../data/stat/bayes.model"
 }
 
 CLASSIFIER = {
+    "rewrite_model": False,
     "beta" : 0.005,
     "train_count": 200000,
-    "test_count": 100,
+    "test_count": 20,
 }
