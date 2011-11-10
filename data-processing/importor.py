@@ -10,7 +10,8 @@ def make_vector_importer(db, stop_words_file, all_tags = {}, words = {}):
 
     def _import_vector(post_type, post):
         if post_type == "question":
-            vector, tags = vectorizor.vectorize(post["Body"],
+            content = "%s %s" % (post["Body"], post["Title"])
+            vector, tags = vectorizor.vectorize(content,
                                                post["Tags"])
             vector_doc = \
             {
