@@ -37,29 +37,35 @@ if __name__ == "__main__":
     classifier = bayesianClassifier.BayesianClassifier(conf["beta"])
 
     lines = enumerate(open(os.path.join(data_path, "vectors.stat")))
+    train_count = conf["train_count"]
+    test_count = conf["test_count"]
     for index, line in lines:
-        if index > 20000:
+        if index > train_count:
             break
-        if index % 200 == 0:
-            print "."
+        if index % 500 == 0:
+            print ".",
+            sys.stdout.flush()
+        if index % 5000 == 0:
+            print "\n"
             sys.stdout.flush()
         segments = line[:-1].split(';')
-        tags = to_ints(segments[1].split(), lambda t: t in all_tags)
+        tags = to_ints(segments[2].split(), lambda t: t in all_tags)
         words = (to_ints(elem.split(":"))
-                for elem in segments[0].split())
+                for elem in segments[1].split())
         words = dict(elem for elem in words if (elem[0] in all_words))
 
         classifier.train(words, tags)
 
     for index, line in lines:
-        if index > 20015:
+        if index > train_count + test_count:
             break
         segments = line[:-1].split(';')
-        tags = to_ints(segments[1].split(), lambda t: t in all_tags)
+        tags = to_ints(segments[2].split(), lambda t: t in all_tags)
         words = (to_ints(elem.split(":"))
-                for elem in segments[0].split())
+                for elem in segments[1].split())
         words = dict(elem for elem in words if (elem[0] in all_words))
 
+        print "\n------\nId:", segments[0]
         print "Expected:", get_named_tags(tags, all_tags)
         actual = classifier.classify(words)
         expected_tags = (tag for tag, score in actual[:10])

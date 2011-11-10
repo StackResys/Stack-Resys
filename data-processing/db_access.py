@@ -19,6 +19,7 @@ def dump_stat(stat, path):
     for item, info in sorted_items:
         output.write("%d:%s:%s\n" % (info[0], item, info[1]))
 
+# TODO: The implementation sucks, should clean it
 def dump_vectors(db, path, vector_filter = {}, limit = sys.maxint):
     output = open(path, "w")
     for index, vector in enumerate(db.vectors_table.find(vector_filter)):
@@ -30,7 +31,7 @@ def dump_vectors(db, path, vector_filter = {}, limit = sys.maxint):
             sys.stdout.flush()
         merged = _merge_post(vector["posts"])
         tags = vector["tags"]
-        _output_vector(merged, tags, output)
+        _output_vector(vector["id"], merged, tags, output)
 
 def _merge_post(posts):
     result = {}
@@ -40,7 +41,8 @@ def _merge_post(posts):
             result[w[0]] += w[1]
     return result
 
-def _output_vector(vector, tags, output):
+def _output_vector(id, vector, tags, output):
+    output.write("%d;" % id)
     for k, v in vector.items():
         output.write("%d:%d " % (k, v))
     output.write(";")
