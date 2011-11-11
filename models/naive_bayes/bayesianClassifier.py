@@ -6,20 +6,16 @@ class BayesianClassifier:
         self.total = 0
         # Labels and their occurrence
         self.labelCount = {}
-        # Features and their occurrence
-        self.featureCount = {}
         # Features' occurrence under certain label
         self.labelFeatureCount = {}
         # beta value
         self.beta = beta
 
     def train(self, features, labels):
-        self.total += sum(features.values())
         # Update the counting of the attributes under differnt labels
-        for feature, count in features.items():
-            self._updateCount(\
-                    self.featureCount, feature, count)
-            for label in labels:
+        for label in labels:
+            for feature, count in features.items():
+                self.total += count
                 label_wc = self.labelFeatureCount.setdefault(label, {})
                 label_wc.setdefault(feature, 0)
                 label_wc[feature] += count
@@ -32,6 +28,7 @@ class BayesianClassifier:
                         key = lambda x: x[1], \
                         reverse = True)
 
+        scores = self._normalize_score(scores)
         return scores
 
     def getScore(self, features, label):
@@ -58,6 +55,11 @@ class BayesianClassifier:
         if n1 == 0:
             return 0
         return math.log(n1 * 1.0 / n2, 2)
+
+    def _normalize_score(self, scores):
+        total = sum(s for k, s in scores)
+        scores = [(k, math.log(1 - s/total)) for k, s in scores]
+        return scores
 
 
 if __name__ == "__main__":

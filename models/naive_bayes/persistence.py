@@ -6,7 +6,6 @@ def save(classifier, filepath):
     output.write("%d\n" % classifier.total)
     output.write("%f\n" % classifier.beta)
     _save_dict(output, classifier.labelCount)
-    _save_dict(output, classifier.featureCount)
     _save_2_layer_dict(output, classifier.labelFeatureCount)
 
     output.close()
@@ -17,7 +16,6 @@ def load(filepath):
     classifier.total = int(input.readline())
     classifier.beta = float(input.readline())
     classifier.labelCount = _load_dict(input)
-    classifier.featureCount = _load_dict(input)
     classifier.labelFeatureCount = _load_2_layer_dict(input)
 
     return classifier
@@ -25,7 +23,11 @@ def load(filepath):
 def _save_dict(output, d):
     output.write("%d\n" % len(d))
     for k, v in d.items():
-        output.write("%s\t%d\n" % (k, len(d)))
+        # TODO: the following bug, surprisingly, can yield a rather
+        # good performance in calculating tag similarity. Will figure
+        # out later.
+        # output.write("%s\t%d\n" % (k, len(v)))
+        output.write("%s\t%d\n" % (k, v))
 
 def _save_2_layer_dict(output, d):
     output.write("%d\n" % len(d))

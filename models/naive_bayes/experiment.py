@@ -66,6 +66,10 @@ if __name__ == "__main__":
     else:
         classifier = make_configured_classifier(all_tags, all_words)
 
+    if config.CLASSIFIER["rewrite_model"]:
+        print "\nPersistence"
+        persistence.save(classifier, model_path)
+
     # -- Test
     lines = enumerate(open(os.path.join(base_path, "test.stat")))
     test_count = config.CLASSIFIER["test_count"]
@@ -80,18 +84,15 @@ if __name__ == "__main__":
 
         print "\n------\nId:", segments[0]
         print "Expected:", get_named_tags(tags, all_tags)
-        actual = classifier.classify(words)
-        actual_tags = (tag for tag, score in actual[:10])
+        scores = classifier.classify(words)
+        actual_tags = (s for s, c in scores[:10])
         dic = {}
-        for index, item in enumerate(actual):
+        for index, item in enumerate(scores):
             dic[item[0]] = (item[1], index)
 
         print "Actual:", get_named_tags(actual_tags, all_tags)
+        print "Scores:", [c for s, c in scores[:10]]
         print "Rank:", [(all_tags[w][0], dic[w][1]) for w in tags if w in dic]
-
-    if config.CLASSIFIER["rewrite_model"]:
-        print "\nPersistence"
-        persistence.save(classifier, model_path)
 
 
 
