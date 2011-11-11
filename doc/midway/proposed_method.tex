@@ -7,5 +7,38 @@ How it works in our project
 the Advantage.
 
 the disadvantage.
-\subsection{Blah}
+\subsection{Logistic Regression}
+
+\renewcommand{\arraystretch}{1}
+\vspace{-0.02in}
+\begin{table}[htb]
+\centering
+\small
+\begin{tabular}{l} \hline
+\textbf{Algorithm 2:} Logistic Regression\\ \hline
+\textbf{Input:} Training set $T=\{t_1,...t_n\}$, constant $\eta$, converge threshold $\varepsilon$\\
+%\hspace{0.65cm} Test set: Set of queries $Q$;\\
+\textbf{Output:} Weight matrix $W$\\
+
+\hspace{.15cm}1: Initialize all $w_{ij} \in W$ to 0;\\
+\hspace{.15cm}2: $isConverge \leftarrow false$;\\
+\hspace{.15cm}3: \textbf{While} $isConverge = false$;\\
+\hspace{.15cm}4: \quad \textbf{Foreach} $w_{ij} \in W$\\
+\hspace{.15cm}5: \quad \quad \textbf{Foreach} $t_l \in T$ \textbf{do} \\
+\hspace{.15cm}6: \quad \quad \quad $jump_{ij} \leftarrow 0$;\\
+\hspace{.15cm}7: \quad \quad \quad Calculate $d=X_{i}^{l}(\delta (Y^{l}=y_{j})-\hat{P}(Y^{l}=y_{j}|X^{l},W))$;\\
+\hspace{.15cm}8: \quad \quad \quad $jump_{ij} \leftarrow \eta * d$; \\
+\hspace{.15cm}9: \quad \quad \textbf{End}\\
+10: \quad \quad $w_{ij} \leftarrow w_{ij} + jump_{ij}$;\\
+11: \quad \textbf{End}\\
+12: \quad \textbf{If} $\forall jump_{ij} \rightarrow jump_{ij} < \varepsilon$\\
+13: \quad \quad $isConverge \leftarrow true$;\\
+14: \quad \textbf{End}\\
+15: \textbf{End}\\
+16: \textbf{Return} $W$;\\
+\hline
+\end{tabular}
+\normalsize
+\end{table}
+
 \subsection{SVM}
