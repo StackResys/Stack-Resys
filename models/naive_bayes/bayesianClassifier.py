@@ -28,7 +28,7 @@ class BayesianClassifier:
                         key = lambda x: x[1], \
                         reverse = True)
 
-        scores = self._normalize_score(scores)
+        # scores = self._normalize_score(scores)
         return scores
 
     def getScore(self, features, label):
@@ -58,7 +58,7 @@ class BayesianClassifier:
 
     def _normalize_score(self, scores):
         total = sum(s for k, s in scores)
-        scores = [(k, math.log(1 - s/total)) for k, s in scores]
+        scores = [(k, -math.log(1 - s/total, 1.01)) for k, s in scores]
         return scores
 
 

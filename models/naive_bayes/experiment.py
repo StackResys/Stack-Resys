@@ -88,11 +88,11 @@ if __name__ == "__main__":
         actual_tags = (s for s, c in scores[:10])
         dic = {}
         for index, item in enumerate(scores):
-            dic[item[0]] = (item[1], index)
+            dic[item[0]] = (item, index)
 
         print "Actual:", get_named_tags(actual_tags, all_tags)
         print "Scores:", [c for s, c in scores[:10]]
-        print "Rank:", [(all_tags[w][0], dic[w][1]) for w in tags if w in dic]
+        print "Rank:", [(all_tags[w][0], dic[w]) for w in tags if w in dic]
 
 
 
