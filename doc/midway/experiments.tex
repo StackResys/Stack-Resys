@@ -1,7 +1,15 @@
 
-\section{Dataset}
+\subsection{Dataset and Evaluation Method}
+The dataset we used in our experiments is provided by StackOverflow.com. Currently, there are 2.2 million questions, 4.8 millions answers, over 35 thousands tags in this dataset\cite{DataDump}.
 
-\subsection{Metrics}
+We prepared 1,050,000 posts(a post is either a question or an answer)  as the training data $S_{train}$, and randomly sampled 500 posts along the timeline as our test dataset $S_{test}$.
+
+We use the F-measure as our evaluation method. The precision, recall and F-measure are calculated as follows:
+$$ \text{Precision}=\frac{tp}{tp+fp} $$
+$$ \text{Recall}=\frac{tp}{tp+fn} $$
+$$     F = 2 \cdot \frac{\mathrm{precision} \cdot \mathrm{recall}}
+                        { \mathrm{precision} + \mathrm{recall}}  $$
+where $tp$ is the count of true positive, $fp$ the false positive and $fn$ the false negative.
 
 \subsection{Experimental Results}
 \subsubsection{Naive Bayes}
