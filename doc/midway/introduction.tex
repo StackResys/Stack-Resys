@@ -1,17 +1,16 @@
 
-As the world's most popular programmer Q\&A community, StackOverflow.com is a showcase of the successful usage of the tagging system, where each question could have one or more tags to indicate its "topics". 
+As the world's most popular programmer Q\&A community, StackOverflow.com is a showcase of the successful usage of the tagging system, where each question could have one or more tags to indicate its ``topics". 
 
-Traditional hierarchical taxonomies force each item to be one of the predefined categories, however in a tagging system one item could have multiple categories(the "tags"). In a typical tagging system, besides applying the existing tags, users can easily create a new tag to describe an item if existing tags is not good enough. Thus, by gathering the "wisdom of the crowd", an item can have more precise and comprehensive descriptors from users of different propsective. 
+Traditional hierarchical taxonomies force each item to be one of the predefined categories, however in a tagging system one item could have multiple categories(the ``tags"). In a typical tagging system, besides applying the existing tags, users can easily create a new tag to describe an item if existing tags is not good enough. Thus, by gathering the ``wisdom of the crowd", an item can have more precise and comprehensive descriptors from users of different prospective. 
 
-With great interest in the rich semantic informaion revealed by these tags, in this project we aim at predicting the tags of a question by 
-by analyzing the tagged questions/answers of StackOverflow.com. That is, given a question, our system will predict appropriate tags for it. With the tag predictor, a user could have suggested tags at hand as soon as he/she asked a question. This will fascilitate tagging task. Sen et al.\cite{Sen2006} indicate that with suggestion people are more likely to assign items with higher quality tags.
+With great interest in the rich semantic information revealed by these tags, in this project we aim at predicting the tags of a question by analyzing the tagged questions/answers of StackOverflow.com. That is, given a question, our system will predict appropriate tags for it. With the tag predictor, a user could have suggested tags at hand as soon as he/she asked a question. This will facilitate tagging task. Sen et al.\cite{Sen2006} indicate that with suggestion people are more likely to assign items with higher quality tags.
 
-What's more, the tag prediction will also benefit the already tagged questions by giving us a deeper insight into that question in the follwoing ways:
+What's more, the tag prediction will also benefit the already tagged questions by giving us a deeper insight into that question in the following ways:
 
 \begin{itemize}
-    \item Reveal the hidden tags: often a piece of text is a mix of different topics while a user often only choose a fraction of them as the tags. That is to say, the tags only indicate the "partial topics" of the text. With the tag prediction technology, we're able to discover the "hidden" tags.
-    \item Discover the Vocabulary difference: different users may use different terms to describe the same item. Our predictor can be a good assistant in finding the synonym tags because similiar tag will have similiar distribution.
-    \item Disambiguation: Many tags are ambiguous. With additionally predicted tags it will easier grasp the meaning of a specific tag. For example, an article with tag "apple" may tell us little of its content, but if found the hidden tags "osx", "iphone" then we know exactly what "apple" mean in this text.
+    \item Reveal the hidden tags: often a piece of text is a mix of different topics while a user often only choose a fraction of them as the tags. That is to say, the tags only indicate the ``partial topics" of the text. With the tag prediction technology, we're able to discover the ``hidden" tags.
+    \item Discover the Vocabulary difference: different users may use different terms to describe the same item. Our predictor can be a good assistant in finding the synonym tags because similar tag will have similar distribution.
+    \item Disambiguation: Many tags are ambiguous. With additionally predicted tags it will easier grasp the meaning of a specific tag. For example, an article with tag ``apple" may tell us little of its content, but if found the hidden tags ``osx", ``iphone" then we know exactly what ``apple" mean in this text.
 \end{itemize}
 
 In this project, we will adopt and improve several methods to predict the tags of the questions in StackOverflow.com.
