@@ -8,6 +8,7 @@ $(DOC).dvi: *.tex *.sty *.bib
 	latex $(DOC).tex
 	bibtex $(DOC)
 	latex $(DOC).tex
+	latex $(DOC).tex
 
 view:
 	evince $(DOC).pdf&
