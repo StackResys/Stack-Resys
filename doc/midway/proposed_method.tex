@@ -9,31 +9,54 @@ the Advantage.
 the disadvantage.
 \subsection{Logistic Regression}
 
+Logistic regression is a discriminative model which learns $P(Y|X)$ directly from the training data. In our problem the value of $y$ takes any of the discrete values $\{y_1,...y_K\}$, and the form of $P(Y=y_k|X)$ for $Y=y_1,...Y=y_{K-1}$ is: 
+
+\begin{gather}
+	P(Y=y_k|X)=\frac{exp(w_{k0}+\sum_{i=1}^n{w_{ki}X_i})}{1+\sum_{j=1}^{K-1}exp(w_{j0}+\sum_{i=1}^n{w_{ji}X_i})}
+\end{gather}
+
+For $Y=y_K$, the form is:
+
+\begin{gather}
+	P(Y=y_K|X)=\frac{1}{1+\sum_{j=1}^{K-1}exp(w_{j0}+\sum_{i=1}^n{w_{ji}X_i})}
+\end{gather}
+
+Here $X_i$ denotes the $i$th variable in $X$, and $w_{ji}$ means the weight of $j$th class of $Y$ with variable $X_i$.
+
+If using gradient descent rule with regularization in order to estimate the values of $w_{ji}$, we are after:
+
+\begin{gather}
+	w_{ji} \leftarrow w_{ji}+ \eta \sum_{l}X_{i}^{l}(\delta (y_{j} \in Y^{l})-\hat{P}(y_{j} \in Y^{l}|X^{l},W))- \eta \lambda w_{ji}
+\end{gather}
+
+where $\eta$ is a small constant which determines the step size, and $\lambda$ is the regularization constant. The algorithm is stated in Algorithm \ref{alg:lr}. [Describe the algorithm]
+
 \IncMargin{1em}
 \begin{algorithm}
+\label{alg:lr}
 \SetKwData{Left}{left}\SetKwData{This}{this}\SetKwData{Up}{up}
 \SetKwFunction{Union}{Union}\SetKwFunction{FindCompress}{FindCompress}
 \SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
-\Input{Training set $T=\{t_1,...t_n\}$, constant $\eta$, converge threshold $\varepsilon$}
+\Input{Training set $T=\{t_1,...t_n\}$, constant $\eta$, converge threshold $\varepsilon$, regulation factor $\lambda$}
 \Output{Weight matrix $W$}
 \BlankLine
-Initialize all $w_{ij} \in W$ to 0\;
+Initialize all $w_{ji} \in W$ to 0\;
 $isConverge \leftarrow false$\;
 \While{$isConverge = false$}{
-	\ForEach{$w_{ij} \in W$}{
+	\ForEach{$w_{ji} \in W$}{
 		\ForEach{$t_l \in T$}{
-			$jump_{ij} \leftarrow 0$\;
-			Calculate $d=X_{i}^{l}(\delta (Y^{l}=y_{j})-\hat{P}(Y^{l}=y_{j}|X^{l},W))$\;
-			$jump_{ij} \leftarrow \eta * d$\;
+			$jump_{ji} \leftarrow 0$\;
+			Calculate $d=X_{i}^{l}(\delta (y_{j} \in Y^{l})-\hat{P}(y_{j} \in Y^{l}|X^{l},W))$\;
+			$jump_{ji} \leftarrow \eta * d$\;
 		}
-		$w_{ij} \leftarrow w_{ij} + jump_{ij}$\;
+		$w_{ji} \leftarrow w_{ji} + jump_{ji}$\;
 	}
-	\If{$\forall jump_{ij} \rightarrow jump_{ij} < \varepsilon$}{
+	$w_{ji} \leftarrow w_{ji} - \eta \lambda w_{ji}$\;
+	\If{$\forall jump_{ji} \rightarrow jump_{ji} < \varepsilon$}{
 		$isConverge \leftarrow true$\;
 	}
 }
 \Return $W$\;
-
 \caption{Logistic Regression}\label{algo_disjdecomp}
 \end{algorithm}\DecMargin{1em}
 
