@@ -16,26 +16,27 @@ precision = c(0.529710144928, 0.532463768116, 0.520531400966, 0.495859213251, 0.
 fscore = c(0.529710144928, 0.532463768116, 0.520531400966, 0.495859213251, 0.488949275362, 0.478904991948, 0.458405797101)
 
 # Calculate range from 0 to max value of cars and trucks
-g <- range <- range(0, recall, precision)
+grange <- range(0, recall, precision)
 
 # Graph autos using y axis that ranges from 0 to max 
 # value in cars or trucks vector.  Turn off axes and 
 # annotations (axis labels) so we can specify them ourself
-plot(x=seq(4, 10), y=recall, type="o", col="blue", ylim=c(0.45, 0.75), xlab="# of Top N Tags")
+plot(x=seq(4,10), y=recall, type="o", col="blue", ylim=c(0.45, 0.75), xlab="# of Top N Tags")
 
 
 # Create box around plot
 box()
 
 # Graph trucks with red dashed line and square points
-lines(precision, type="o", pch=22, lty=2, col="red")
+lines(x=seq(4, 10), precision, type="o", pch=22, lty=2, col="red")
 
 # Create a title with a red, bold/italic font
-title(main="Recall, Precision and F-measure", col.main="red", font.main=4)
+title(main="Recall and Precision", col.main="red", font.main=4)
 
 # Create a legend at (1, g <- range[2]) that is slightly smaller 
 # (cex) and uses the same line colors and points used by 
 # the actual plots 
-legend(1, g <- range[2], c("Recall","Precision"), cex=0.8, 
+print(grange[2])
+legend(4, grange[2], c("Recall","Precision"), cex=0.8, 
           col=c("blue","red"), pch=21:22, lty=1:2);
 dev.off()

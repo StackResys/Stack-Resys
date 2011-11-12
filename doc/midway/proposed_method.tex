@@ -102,7 +102,8 @@ $isConverge \leftarrow false$\;
 
 Neural Networks is another classifier model that can be applied to our problem. In our case, the input units represent words in the question, and output units represent tags. We add one hidden layer in this network (normally one hidden layer is enough), and use backpropagation to train the weights. 
 
-Our algorithm for training the Neural Networks is stated in Algorithm \ref{alg:nn}. Each training sample is a vector pair $<\overrightarrow{x},\overrightarrow{y}>$, where $\overrightarrow{x}$ is the vector of network input values, and $\overrightarrow{y}$ is the target network output values. $\eta$ is a small constant set to 0.05. $n_w$, $n_h$ and $n_t$ stand for the number of words, the number of hidden units and the number of tags, respectively. $w_{wh}$ is the weight from a word unit to a hidden unit, and $w_{ht}$ is the weight from a hidden unit to a tag unit. The algorithm outputs two weight matrix consisting all the weights of $w_{wh}$ and $w_{ht}$.
+Our algorithm for training the Neural Networks is stated in Algorithm \ref{alg:nn}. Each training sample is a vector pair $<\overrightarrow{x},\overrightarrow{y}>$, where $\overrightarrow{x}$ is the vector of network input values, and $\overrightarrow{y}$ is the target network output values. $\eta$ is a small constant set to 0.05. $n_w$, $n_h$ and $n_t$ stand for the number of words, the number of hidden units and the number of tags, respectively. $w_{wh}$ is the weight from a word unit
+to a hidden unit, and $w_{ht}$ is the weight from a hidden unit to a tag unit. The algorithm outputs two weight matrix consisting all the weights of $w_{wh}$ and $w_{ht}$. We select $N$ top-rank tags as the predicted tags for the given question.
 
 \IncMargin{1em}
 \begin{algorithm}
