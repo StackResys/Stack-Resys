@@ -3,7 +3,6 @@ DOC=midway
 
 $(DOC).pdf: $(DOC).dvi
 	dvipdf $(DOC).dvi
-	cp $(DOC).pdf kail1_midterm_report_mladen_kolar.pdf
 
 $(DOC).dvi: *.tex *.sty *.bib
 	latex $(DOC).tex
