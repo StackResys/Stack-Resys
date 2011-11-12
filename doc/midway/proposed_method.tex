@@ -96,4 +96,32 @@ $isConverge \leftarrow false$\;
 % TODO: CURIOUS CASE OF STRANGE LAYOUT
 % \pagebreak
 
-\subsection{SVM}
+\subsection{Neural Networks}
+
+Neural Networks is another classifier model that can be applied to our problem. In our case, the input units represent words in the question, and output units represent tags. We add one hidden layer in this network (normally one hidden layer is enough), and use backpropagation to train the weights. 
+
+Our algorithm for training the Neural Networks is stated in Algorithm \ref{alg:nn}. Each training sample is a vector pair $<\overrightarrow{x},\overrightarrow{y}>$, where $\overrightarrow{x}$ is the vector of network input values, and $\overrightarrow{y}$ is the target network output values. $\eta$ is a small constant set to 0.05. $n_w$, $n_h$ and $n_t$ stand for the number of words, the number of hidden units and the number of tags, respectively. $w_{wh}$ is the weight from a word unit to a hidden unit, and $w_{ht}$ is the weight from a hidden unit to a tag unit. The algorithm outputs two weight matrix consisting all the weights of $w_{wh}$ and $w_{ht}$.
+
+\IncMargin{1em}
+\begin{algorithm}
+\label{alg:nn}
+\SetKwData{Left}{left}\SetKwData{This}{this}\SetKwData{Up}{up}
+\SetKwFunction{Union}{Union}\SetKwFunction{FindCompress}{FindCompress}
+\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+\Input{Training set $T=\{t_1,...t_n\}$, constant $\eta$, $n_w$, $n_h$, $n_t$}
+\Output{Two weight matrix $W_{wh}$ and $W_{hy}$}
+\BlankLine
+Create a feed-forward neural network with $n_w$ input units, $n_h$ hidden units and $n_t$ output units\;
+Initialize all $w_{wh} \in W_{wh}$ and $w_{ht} \in W_{ht}$ to be small random numbers between $(-0.05, 0.05)$\;
+\ForEach{Training sample $<\overrightarrow{x},\overrightarrow{y}>$}{
+	Compute $O_{w}^{l}=\sigma (\overrightarrow{w}*\overrightarrow{x})$ and $O_{h}^{l}=\sigma (\overrightarrow{w}*\overrightarrow{O_{w}^{l}})$ 
+		where $\sigma (y)=\frac{1}{1+exp\{-y\}}$ \;
+	For each $O_{w}^{l}$, compute $\delta_{w}^{l} \leftarrow O_{w}^{l} (1-O_{w}^{l}) (t_{w}^{l} - O_{w}^{l})$ \;
+	For each $O_{h}^{l}$, compute $\delta_{h}^{l} \leftarrow O_{h}^{l} (1-O_{h}^{l}) \sum_{w \in outputs}{w_i \delta_{k}^{l}}$ \;
+	For each $w_{wh} \in W_{wh}$, compute $w_{wh} \leftarrow w_{wh}+\eta \delta_{w}^{l}O_{w}^{l}$ \;
+	For each $w_{ht} \in W_{ht}$, compute $w_{ht} \leftarrow w_{ht}+\eta \delta_{h}^{l}O_{h}^{l}$ \;
+}
+\Return $W_{wh}$ and $W_{ht}$ \;
+
+\caption{Neural Networks Training Algorithm}\label{algo_disjdecomp}
+\end{algorithm}\DecMargin{1em}
