@@ -1,16 +1,16 @@
 
 As the world's most popular programmer Q\&A community, StackOverflow.com is a showcase of the successful usage of the tagging system, where each question could have one or more tags to indicate its ``topics". 
 
-Traditional hierarchical taxonomies force each item to be one of the predefined categories, however in a tagging system one item could have multiple categories(the ``tags"). Moreover, the tagging systems normally encourages users to contribute their tags. Thus, by gathering the ``wisdom of the crowd", an item can have more precise and comprehensive descriptors from users of different prospective. 
+Traditional hierarchical taxonomies force each item to be one of the predefined categories, however in a tagging system one item could have multiple categories(the ``tags"). Moreover, the tagging systems normally encourages users to contribute their own tags. Thus, by gathering the ``wisdom of the crowd", an item can have more up-to-date and precise descriptors.
 
-In this project we aim at predicting the tags of a question by analyzing the tagged questions/answers from StackOverflow.com. That is, given a question, our system will predict appropriate tags for it. With the tag predictor, a user could have suggested tags at hand as soon as he/she asked a question. This will facilitate tagging task. Sen et al.\cite{Sen2006} indicate that with suggestion people are more likely to assign items with higher quality tags.
+In this project we aim at predicting the tags of a question by analyzing the tagged questions/answers from StackOverflow.com. That is, given a question, our system will predict appropriate tags for it. With the tag predictor, a user could have suggested tags at hand as soon as he/she asked a question. This will facilitate tagging task. Sen et al.\cite{Sen2006} point out that with suggestion people are more likely to assign items with higher quality tags.
 
 Moreover, the tag prediction will also benefit the already tagged questions by giving us a deeper insight into that question in the following ways:
 
 \begin{itemize}
-    \item Reveal the hidden tags: often a piece of text is a mix of different topics while a user often only choose a fraction of them as the tags. That is to say, the tags only indicate the ``partial topics" of the text. With the tag prediction technology, we're able to discover the ``hidden" tags.
-    \item Discover the Vocabulary difference: different users may use different terms to describe the same item. Our predictor can be a good assistant in finding the synonym tags because similar tag will have similar distribution.
-    \item Disambiguation: Many tags are ambiguous. With additionally predicted tags it will easier grasp the meaning of a specific tag. For example, an article with tag ``apple" may tell us little of its content, but if found the hidden tags ``osx", ``iphone" then we know exactly what ``apple" mean in this text.
+    \item Reveal the hidden tags: often a piece of text is a mix of different topics while a user may only choose a fraction of them as the tags. That is to say, these tags only indicate the ``partial topics" of the text. With the tag prediction technology, we're able to discover the ``hidden" tags.
+    \item Discover the Vocabulary difference: different users may use different terms to describe the same item. Our predictor can be a good assistant in finding the synonym tags because similar tag by searching tags with similar word distribution.
+    \item Disambiguation: tags are short and often ambiguous. With additionally predicted tags it will easier grasp the meaning of a specific tag. For example, an article with tag ``apple" may tell us little of its content, but if we find the hidden tags ``osx", ``iphone" then we know exactly what ``apple" mean under such context.
 \end{itemize}
 
-In this project, we will adopt and improve several methods to predict the tags of the questions in StackOverflow.com.
+In this project, we will adopt and improve several methods to predict the tags of the questions in StackOverflow.com. Unlike traditional classification problems, tag assignment is harder owing to its subjectivity and incompleteness. We'll discuss more about this in experiment section.
