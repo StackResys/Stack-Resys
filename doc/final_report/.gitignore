@@ -1,0 +1,7 @@
+# the data directory will not be committed
+*.aux
+*.log
+*.pdf
+*.dvi
+*.blg
+*.bbl
