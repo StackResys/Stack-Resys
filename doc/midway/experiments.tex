@@ -12,10 +12,9 @@ where $tp$ is the count of true positive, $fp$ the false positive and $fn$ the f
 Currently we manually check the precision of the predicted tags in the test set. This is quite a challenging work because as we discussed in introduction, tags are often quite subjective and incomplete. So it will be inappropriate to require our predicted tags to be exactly the same as the user-defined tags. Thus, we should read the questions and measure the quality of the tag by common sense. 
 
 In this mile-stone, we manually check the results of naive Bayes classifier. In the next step, we will also trying to develop some tools that could ease our checking process. For example, now we have developed a tag similarity calculator based on Kullback-Leibler distance, a method that could determine how similar two 
-distributions. In our case, each tag will have a corresponding word distribution $P(word|tag)$. Similar tags often have similar word distribution. For example, the $KLDistance(eclipse, java)$ is small while $KL(lisp, eclipse)$ is much bigger.
+distributions. In our case, each tag will have a corresponding word distribution $P(word|tag)$. Similar tags often have similar word distribution. For example, the $Distance(eclipse, java)$ is small while $Distance(lisp, eclipse)$ is much bigger.
 
-With these tool we hope we can semi-automate or automate the evaluation
-process.
+With these tool we hope in the next step we can semi-automate or automate the evaluation process.
 
 \subsection{Experimental Results}
 \subsubsection{Naive Bayes}
