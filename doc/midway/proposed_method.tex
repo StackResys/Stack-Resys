@@ -2,7 +2,7 @@
 \subsection{Naive Bayes}
 Naive Bayes classifier is a simple yet powerful classifier based on Bayes theorem. It assumes that the presence of one feature is independent from the presence of the others. When performing the text categorization, Naive Bayes treats each document as a ``bag of words" and words are conditionally independent from each other.
 
-In practice, naive Bayes classifiers can have a very satisfactory performance in a supervised learning. Many real-world problems are tackled by naive Bayes. Owing to its simplicity and desirable accuracy in many cases, we chose naive Bayes as our baseline.
+In practice, naive Bayes classifiers can have a very satisfactory performance in a supervised learning. Many real-world problems are tackled by naive Bayes. Owing to its simplicity and desirable accuracy in many cases, we chose naive Bayes as our baseline. In our tagging prediction problem, we view the words as the features and tag the labels.
 
 By applying Bayes theorem, we can get the label $Y$'s probability given $X$.
 \begin{gather}
@@ -41,6 +41,8 @@ Initialize total count $N$ to be 0\;
 \caption{Naive Bayes Training Algorithm}\label{algo_disjdecomp}
 \end{algorithm}
 \DecMargin{1em}
+
+With the calculated $P(Y) and P(X|Y)$, we can apply the MLE(or MAP) to find the top-rank tags.
 
 \subsection{Logistic Regression}
 
