@@ -1,14 +1,22 @@
+import logging
 
 INPUT = {
-    "word_threshold": 8,
-    "tag_threshold": 5,
+    "word_threshold": 20,
+    "tag_threshold": 10,
     "base_path": "../../data/stat/",
     "path": "../../data/stat/bayes.model"
 }
 
 CLASSIFIER = {
-    "rewrite_model": False,
-    "beta" : 0.005,
-    "train_count": 200000,
-    "test_count": 20,
+    "retrain_model": True,
+    "beta" : 0.5,
+    "train_count": 300000,
+    "test_count": 1000,
+}
+
+LOGGER = {
+    "name": "BayesianLogger",
+    "log_file": "logs/bayesian.log",
+    "format": "%(asctime)s %(levelname)s %(message)s",
+    "level": logging.DEBUG
 }

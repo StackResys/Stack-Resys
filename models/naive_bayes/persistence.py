@@ -1,6 +1,6 @@
 import bayesianClassifier
 
-def save(classifier, filepath):
+def save_model(classifier, filepath):
     output = open(filepath, "w")
 
     output.write("%d\n" % classifier.total)
@@ -10,7 +10,7 @@ def save(classifier, filepath):
 
     output.close()
 
-def load(filepath):
+def load_model(filepath):
     input  = open(filepath)
     classifier = bayesianClassifier.BayesianClassifier()
     classifier.total = int(input.readline())
