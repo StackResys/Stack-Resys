@@ -1,7 +1,11 @@
+""" This module provides a globally accessible
+    logger created from the config file """
+
 import logging
 import config
 
 def _create_logger_from_config():
+    """ Create the logger from the config file """
     conf = config.LOGGER
     logging.basicConfig(format=conf["format"])
     logger = logging.getLogger(conf["name"])
@@ -16,5 +20,5 @@ def _create_logger_from_config():
 
     return logger
 
-logger = _create_logger_from_config()
+LOGGER = _create_logger_from_config()
 

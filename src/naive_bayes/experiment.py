@@ -1,6 +1,6 @@
 import naive_bayes
 import config
-from log import logger
+from log import LOGGER
 import os
 import persistence
 import sys
@@ -31,25 +31,25 @@ def read_meta_data(path, threshold):
 
 # -- Create Classifier
 def create_classifier():
-    logger.debug("Creating classifier ...")
+    LOGGER.debug("Creating classifier ...")
     conf = config.INPUT
     base_path = conf["base_path"]
     model_path = os.path.join(base_path, "bayes.model")
 
     # Create classifier from scratch or from already persisted model
     if not config.CLASSIFIER["retrain_model"] and os.path.exists(model_path):
-        logger.debug("Creating classifier from file ...")
+        LOGGER.debug("Creating classifier from file ...")
         classifier = persistence.load_model(model_path)
-        logger.debug("Reading completed.")
+        LOGGER.debug("Reading completed.")
     else:
-        logger.debug("Creating empty classifier ...")
+        LOGGER.debug("Creating empty classifier ...")
         classifier = make_classifier_from_config(all_tags, all_words)
-        logger.debug("Traing completed.")
+        LOGGER.debug("Traing completed.")
 
     if config.CLASSIFIER["retrain_model"]:
-        logger.debug("Writing the model to %s ..." % model_path)
+        LOGGER.debug("Writing the model to %s ..." % model_path)
         persistence.save_model(classifier, model_path)
-        logger.debug("Writing model completed.")
+        LOGGER.debug("Writing model completed.")
     return classifier
 
 def make_classifier_from_config(all_tags, all_words):
@@ -94,8 +94,8 @@ def run_test(classifier):
                 for elem in segments[1].split())
         words = dict(elem for elem in words if (elem[0] in all_words))
 
-        logger.info("Test %d: %s" % (index, segments[0]))
-        logger.info("Classifying...")
+        LOGGER.info("Test %d: %s" % (index, segments[0]))
+        LOGGER.info("Classifying...")
         scores = classifier.classify(words)
         actual_tags = (s for s, c in scores[:10])
         dic = {}
@@ -110,7 +110,7 @@ def run_test(classifier):
             str(get_tag_name(tags, all_tags)),
             str(get_tag_name(actual_tags, all_tags)),
             str([(all_tags[w][0], dic[w][1]) for w in tags if w in dic]))
-        logger.info(test_result)
+        LOGGER.info(test_result)
 
 # -- Utilities
 def to_ints(array, filter = lambda x: True):
