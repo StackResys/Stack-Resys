@@ -1,22 +1,22 @@
-import bayesianClassifier
+import naive_bayes
 
 def save_model(classifier, filepath):
     output = open(filepath, "w")
 
     output.write("%d\n" % classifier.total)
     output.write("%f\n" % classifier.beta)
-    _save_dict(output, classifier.labelCount)
-    _save_2_layer_dict(output, classifier.labelFeatureCount)
+    _save_dict(output, classifier.label_counts)
+    _save_2_layer_dict(output, classifier.label_feature_count)
 
     output.close()
 
 def load_model(filepath):
     input  = open(filepath)
-    classifier = bayesianClassifier.BayesianClassifier()
+    classifier = naive_bayes.Classifier()
     classifier.total = int(input.readline())
     classifier.beta = float(input.readline())
-    classifier.labelCount = _load_dict(input)
-    classifier.labelFeatureCount = _load_2_layer_dict(input)
+    classifier.label_counts = _load_dict(input)
+    classifier.label_feature_count = _load_2_layer_dict(input)
 
     return classifier
 

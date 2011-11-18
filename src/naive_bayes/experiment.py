@@ -1,4 +1,4 @@
-import bayesianClassifier
+import naive_bayes
 import config
 from log import logger
 import os
@@ -56,7 +56,7 @@ def make_classifier_from_config(all_tags, all_words):
     # Training
     conf = config.CLASSIFIER
     base_path = config.INPUT["base_path"]
-    classifier = bayesianClassifier.BayesianClassifier(conf["beta"])
+    classifier = naive_bayes.Classifier(conf["beta"])
 
     train_count = conf["train_count"]
     lines = enumerate(open(os.path.join(base_path, "train.stat")))
