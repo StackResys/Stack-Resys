@@ -1,3 +1,4 @@
+""" All the configurations goes here """
 import logging
 
 INPUT = {
