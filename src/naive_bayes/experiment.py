@@ -1,3 +1,6 @@
+""" This file is to train/test the naive bayesian classifier.
+    The train/test details can be configured in config.py """
+
 import naive_bayes
 import config
 from log import LOGGER
@@ -7,19 +10,24 @@ import sys
 
 # -- READING Basic Info
 def read_tags_and_words():
+    """ Read tags and words by the configuration """
     conf = config.INPUT
     base_path = conf["base_path"]
     tag_threshold = conf["tag_threshold"]
     word_threshold = conf["word_threshold"]
 
-    all_tags = read_meta_data(os.path.join(base_path, "tags.stat"),
-                          tag_threshold)
-    all_words = read_meta_data(os.path.join(base_path, "words.stat"),
-                           word_threshold)
+    all_tags = read_meta_data(
+            os.path.join(base_path, "tags.stat"),
+            tag_threshold)
+    all_words = read_meta_data(
+            os.path.join(base_path, "words.stat"),
+            word_threshold)
 
     return all_tags, all_words
 
 def read_meta_data(path, threshold):
+    """ Utility function used for reading the
+        word count or tag count """
     result = {}
     for line in open(path):
         parts = line[:-1].split(":")
@@ -30,7 +38,7 @@ def read_meta_data(path, threshold):
     return result
 
 # -- Create Classifier
-def create_classifier():
+def create_classifier(all_tags, all_words):
     LOGGER.debug("Creating classifier ...")
     conf = config.INPUT
     base_path = conf["base_path"]
@@ -114,16 +122,19 @@ def run_test(classifier):
 
 # -- Utilities
 def to_ints(array, filter = lambda x: True):
+    """ Convert a string list to an int list """
     raw = (int(elem) for elem in array if len(elem) > 0)
     return tuple(elem for elem in raw if filter(elem))
 
 def get_tag_name(tags, all_tags):
+    """ Convert a list of tag ids to text-tags """
     return [all_tags[tag][0] for tag in tags]
 
-
-if __name__ == "__main__":
+def run_experiment():
     all_tags, all_words = read_tags_and_words()
-    classifier = create_classifier()
+    classifier = create_classifier(all_tags, all_words)
     run_test(classifier)
 
+if __name__ == "__main__":
+    run_experiment()
 

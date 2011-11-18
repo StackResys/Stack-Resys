@@ -1,53 +1,69 @@
+""" This module is responsible to store/persistent the trained
+    naive Bayesian model. """
+
 import naive_bayes
 
 def save_model(classifier, filepath):
+    """ Save the trained model to a file """
     output = open(filepath, "w")
 
     output.write("%d\n" % classifier.total)
     output.write("%f\n" % classifier.beta)
-    _save_dict(output, classifier.label_counts)
-    _save_2_layer_dict(output, classifier.label_feature_count)
+    _save_key_counts(output, classifier.label_counts)
+    _save_2_layer_key_counts(
+            output, classifier.label_feature_count)
 
     output.close()
 
 def load_model(filepath):
-    input  = open(filepath)
+    """ Load the trained model from a file """
+    in_file  = open(filepath)
     classifier = naive_bayes.Classifier()
-    classifier.total = int(input.readline())
-    classifier.beta = float(input.readline())
-    classifier.label_counts = _load_dict(input)
-    classifier.label_feature_count = _load_2_layer_dict(input)
+    classifier.total = int(in_file.readline())
+    classifier.beta = float(in_file.readline())
+    classifier.label_counts = _load_key_counts(in_file)
+    classifier.label_feature_count = \
+        _load_2_layer_key_counts(in_file)
 
     return classifier
 
-def _save_dict(output, d):
-    output.write("%d\n" % len(d))
-    for k, v in d.items():
-        # TODO: the following bug, surprisingly, can yield a rather
-        # good performance in calculating tag similarity. Will figure
-        # out later.
-        # output.write("%s\t%d\n" % (k, len(v)))
-        output.write("%s\t%d\n" % (k, v))
+# -- Utility
+def _save_key_counts(output, key_counts):
+    """ Save the dictionary with this structure
+            key as string: value as int
+    """
+    output.write("%d\n" % len(key_counts))
+    for key, val in key_counts.items():
+        output.write("%s\t%d\n" % (key, val))
 
-def _save_2_layer_dict(output, d):
-    output.write("%d\n" % len(d))
-    for k, d in d.items():
+def _save_2_layer_key_counts(output, key_counts):
+    """ Save the dictionary with this structure
+            key as string: value as key_counts
+    """
+    output.write("%d\n" % len(key_counts))
+    for k, key_counts in key_counts.items():
         output.write("%s\n" % k)
-        _save_dict(output, d)
+        _save_key_counts(output, key_counts)
 
-def _load_dict(input):
-    count = int(input.readline())
-    d = {}
-    for i in xrange(count):
-        parts = input.readline()[:-1].split('\t')
-        d[int(parts[0])] = int(parts[1])
-    return d
+def _load_key_counts(in_file):
+    """ Load the dictionary with this structure
+            key as string: value as int
+    """
+    count = int(in_file.readline())
+    key_counts = {}
+    for _ in xrange(count):
+        parts = in_file.readline()[:-1].split('\t')
+        key_counts[int(parts[0])] = int(parts[1])
+    return key_counts
 
-def _load_2_layer_dict(input):
-    count = int(input.readline())
-    d = {}
-    for i in xrange(count):
-        k = int(input.readline()[:-1])
-        d[k] = _load_dict(input)
-    return d
+def _load_2_layer_key_counts(in_file):
+    """ Load the dictionary with this structure
+            key as string: value as key_counts
+    """
+    count = int(in_file.readline())
+    key_counts = {}
+    for _ in xrange(count):
+        k = int(in_file.readline()[:-1])
+        key_counts[k] = _load_key_counts(in_file)
+    return key_counts
 
