@@ -33,6 +33,28 @@ def get_kl_distance(counter1, counter2):
         distance += (prob1 * (math.log(prob1 / prob2)))
     return distance
 
+def get_translation_probability(label1, label2, counter, reverse_counter):
+    """ TODO """
+    label_counter = counter[label1]
+    label_count = sum(label_counter.values())
+    prob = 0.0
+    for feature, feature_count in label_counter.items():
+        p_feature_label1 = 1.0 * feature_count / label_count
+
+
+        feature_label_counter = reverse_counter[feature]
+
+        label2_count = 0
+        if label2 in feature_label_counter:
+            label2_count = feature_label_counter[label2] * 1.0
+
+        p_label2_feature = label2_count / sum(feature_label_counter.values())
+        prob += (p_feature_label1 * p_label2_feature)
+
+    return prob
+
+
+
 def get_tag_similarity(tag_word_dict, tag1, tag2):
     """ Calcualte the tags similarity based on KL
         Distance """
@@ -45,4 +67,5 @@ def get_tag_similarity(tag_word_dict, tag1, tag2):
     counter2 = tag_word_dict[tag2]
     return get_kl_distance(counter1, counter2), \
            get_kl_distance(counter2, counter1)
+
 
