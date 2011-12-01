@@ -1,5 +1,6 @@
 """ TODO DOC STRING """
 import sys
+import util
 
 def is_not_exist_or_null(array, position):
     return len(array) <= position or array[position] == "NULL"
