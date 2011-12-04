@@ -1,4 +1,5 @@
 import sys
+import string
 
 def has_bad_chars(word):
     bad_characters = "()"
@@ -7,9 +8,13 @@ def has_bad_chars(word):
             return True
     return False
 
+def has_no_letter(word):
+    return all(char not in string.letters for char in word)
+
 def normalize_word(word):
-    if has_bad_chars(word):
+    if has_bad_chars(word) or has_no_letter(word):
         return ""
+
     return word.lower()
 
 def normalized(source):
