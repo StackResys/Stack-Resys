@@ -28,8 +28,8 @@ class Evaluator:
                 _update_with_max_value(precisions, predicted, similarity)
 
         # Get the recall and precison for this sample
-        recall = sum(recalls.values()) * 1.0 / len(predicted_tags)
-        precision = sum(precisions.values()) * 1.0 / len(original_tags)
+        recall = sum(recalls.values()) * 1.0 / len(original_tags)
+        precision = sum(precisions.values()) * 1.0 / len(predicted_tags)
 
         # Update the global statistical information.
         self.total_recall += recall
