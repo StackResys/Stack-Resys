@@ -9,18 +9,6 @@ INPUT = {
     "base_path": "../../data/stat/",
 }
 
-EXPERIMENT = {
-    "predicted_tag_count": 30
-}
-
-PIPELINES = {
-    "default": {
-        "evaluator": KLDistanceEvaluator,
-        "classifier": "naive_bayes",
-        "evaluator_file": "../../data/stat"
-    }
-}
-
 BAYES_CLASSIFIER = {
     "retrain_model": False,
     "beta" : 0.5,

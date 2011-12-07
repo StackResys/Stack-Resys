@@ -27,7 +27,7 @@ def enhance_tags(scored_tags, basket_evaluator):
     scored_tags.sort(key = lambda x: x[1])
     return scored_tags
 
-def run_experiment(pipeline_name):
+def run_experiment(experiment_settings):
     """ Run the experiment with configuration """
     # Reading the words info and tags info from files
     LOGGER.info("Reading tags and words...")
@@ -35,12 +35,9 @@ def run_experiment(pipeline_name):
     LOGGER.info("Read %d tags and %d words" % (len(tags_info), len(words_info)))
 
     sample_count = config.CLASSIFIER["sample_count"]
-    predicted_tag_count = config.EXPERIMENT["predicted_tag_count"]
+    predicted_tag_count = experiment_settings["predicted_tag_count"]
     LOGGER.info("Sample count: %d" % sample_count)
     LOGGER.info("Max predicted tag count: %d" % predicted_tag_count)
-
-    # TODO PIPELINE is of no use right now.
-    pipeline = config.PIPELINES[pipeline_name]
 
     # Generate the evaluators
     base_path = config.INPUT["base_path"]
@@ -51,7 +48,7 @@ def run_experiment(pipeline_name):
     # TODO: DIRTY HACK
 
     evaluator1 =\
-        kl_distance.KLDistanceEvaluator(None, None, pipeline["evaluator_file"])
+        kl_distance.KLDistanceEvaluator(None, None, experiment_settings["evaluator_file"])
     predict_results = prediction.get_sample_results_by_naive_bayes(tags_info, words_info, evaluator1)
 
     """
@@ -93,6 +90,10 @@ def run_experiment(pipeline_name):
 
 
 if __name__ == "__main__":
-    PIPELINE_NAME = "default" if len(sys.argv) < 2 else sys.argv[2]
-    run_experiment(PIPELINE_NAME)
-    # get_evaluation_from_file(PIPELINE_NAME)
+    EXPERIMENT_CONFIG = {
+        "classifier": "naive_bayes",
+        "evaluator_file": "../../data/stat",
+        "predicted_tag_count": 30
+    }
+
+    run_experiment(EXPERIMENT_CONFIG)
