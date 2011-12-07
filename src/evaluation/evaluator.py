@@ -1,5 +1,4 @@
 """ This module defines the base class for Evaluator """
-
 class Evaluator:
     """ Evaluator could be used to analyse the precisiona and recall of
     the classified results """
@@ -45,6 +44,7 @@ class Evaluator:
 
     def get_similarity(self, tag1, tag2):
         """ This method is supposed to be override by sub-class"""
+        (tag1, tag2) = (tag2, tag1) # A hack to supress the warning
         raise RuntimeWarning("Evaluator.get_similarity: This function is not"
                              "Supposed to be invoked")
 

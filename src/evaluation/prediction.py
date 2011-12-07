@@ -1,8 +1,9 @@
 import config
 import os
+import naive_bayes
+import sys
 from log import LOGGER
 import persistence
-import naive_bayes
 
 # -- READING Basic Info
 def read_tags_and_words():
@@ -33,11 +34,6 @@ def read_meta_data(path, threshold):
         result[int(parts[0])] = (parts[1], count)
     return result
 
-def get_test_samples():
-    """ Get the iterator of the test data """
-    path = os.path.join(config.INPUT["base_path"], "test.stat")
-    return open(path)
-
 # -- Utilities
 def to_ints(array, filter = lambda x: True):
     """ Convert a string list to an int list """
@@ -53,70 +49,17 @@ def get_predicted_results_from_file(filename):
         predicted = to_ints(predicted)
         yield original, zip(predicted, scores)
 
-def get_evaluation_from_file(pipeline_name):
-    tags_info, words_info = read_tags_and_words()
-    test_samples = get_predicted_results_from_file("../../data/test_results/knnResult.txt")
-    sample_count = config.CLASSIFIER["sample_count"]
+#
+def get_test_samples():
+    """ Get the iterator of the test data """
+    path = os.path.join(config.INPUT["base_path"], "test.stat")
+    return open(path)
 
-    pipeline = config.PIPELINES[pipeline_name]
-    # TODO extend from naive bayes to any classifier
-    classifier = create_classifier(tags_info, words_info)
-    # TODO Please note that not all the evaluator's constructor looks like this
-    evaluator1 = pipeline["evaluator"](classifier.label_counts, \
-                                      classifier.label_feature_count, \
-                                      pipeline["evaluator_file"])
-
-    base_path = config.INPUT["base_path"]
-    basket_info_file = os.path.join(base_path, "basket.stat")
-    train_data_file = os.path.join(base_path, "vectors.stat")
-
-    evaluator2 = BasketEvaluator(basket_info_file, train_data_file)
-
-    r_tags = rev(tags_info)
-
-    # run the test
-    for index, line in enumerate(test_samples):
-        # Parse the records
-        LOGGER.info("Classifying...")
-
-        expected, actual = line
-        print expected
-        print actual
-        print "r_tags", len(r_tags), r_tags.items()[0]
-        etags = [r_tags[tag] for tag in expected if tag in r_tags]
-        atags = [r_tags[tag] for tag in actual if tag in r_tags]
-
-        print "Basket:", evaluator1.update(atags, etags)
-        print "KL-distance", evaluator2.update(atags, etags)
-
-        """
-        test_result =
-        (
-            str(expected),
-            str(actual),
-            str([(tags_info[w][0], dic[w][1]) for w in tags if w in dic]))
-        LOGGER.info(test_result)
-        """
-    LOGGER.info(str(evaluator1.get_evaluation()))
-    LOGGER.info(str(evaluator2.get_evaluation()))
-
-def rev(d):
-    result = {}
-    for key, val in d.items():
-        result[val[0]] = key
-    return result
-
-# TODO -- This is a hack
-def get_sample_results_by_naive_bayes(tags_info, words_info, evaluator = None):
+def get_sample_results_by_naive_bayes(classifier, tags_info, words_info):
     """ This generator will read the test samples and
         return a sequence of predicted results.  """
     LOGGER.info("Creating the naive bayes classifier...")
     classifier = create_classifier(tags_info, words_info)
-
-    # TODO: HACK
-    if evaluator != None:
-        evaluator.tag_count = classifier.label_counts
-        evaluator.tag_word_count = classifier.label_feature_count
 
     # Getting the test samples
     LOGGER.info("Start to process the samples")
@@ -142,9 +85,35 @@ def get_sample_results_by_naive_bayes(tags_info, words_info, evaluator = None):
         # -- Classifying
         LOGGER.info("Classifying sample %s..." % segments[0])
         tags_with_score = classifier.classify(words)
-        predicted_tags = [s for s, c in tags_with_score]
 
         yield tags, tags_with_score
+
+def make_classifier_from_config(all_tags, all_words):
+    """ Create a naive classifier from scratch """
+    # Training
+    conf = config.CLASSIFIER
+    base_path = config.INPUT["base_path"]
+    classifier = naive_bayes.Classifier(conf["beta"])
+
+    train_count = conf["train_count"]
+    lines = enumerate(open(os.path.join(base_path, "train.stat")))
+    for index, line in lines:
+        if index > train_count:
+            break
+        if index % 500 == 0 and index != 0:
+            print ".",
+            sys.stdout.flush()
+        if index % 5000 == 0 and index != 0:
+            print "\n"
+            sys.stdout.flush()
+        segments = line[:-1].split(';')
+        tags = to_ints(segments[2].split(), lambda t: t in all_tags)
+        words = (to_ints(elem.split(":"))
+                for elem in segments[1].split())
+        words = dict(elem for elem in words if (elem[0] in all_words))
+
+        classifier.train(words, tags)
+    return classifier
 
 def create_classifier(all_tags, all_words):
     LOGGER.debug("Creating classifier ...")

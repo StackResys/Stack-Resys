@@ -9,7 +9,7 @@ class Classifier:
         # Labels and their occurrence
         self.label_counts = {}
         # Features' occurrence under certain label
-        self.label_feature_count = {}
+        self.label_feature_count = {} # TODO: inconsistent naming style
         # beta value
         self.beta = beta
 
