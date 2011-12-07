@@ -1,4 +1,4 @@
-DOC=midway
+DOC=final
 .PHONY: view clean
 
 $(DOC).pdf: $(DOC).dvi
