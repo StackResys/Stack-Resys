@@ -65,26 +65,29 @@ def run_experiment(pipeline_name):
             break
 
         LOGGER.info("%d/%d sample" % (index, sample_count))
-        orignal, scored_predicted = predict_result
-        scored_predicted = enhance_tags(scored_predicted[:30], evaluator2)[:10]
-        # scored_predicted = scored_predicted[:10]
+        try:
+            orignal, scored_predicted = predict_result
+            scored_predicted = enhance_tags(scored_predicted[:30], evaluator2)[:10]
+            # scored_predicted = scored_predicted[:10]
 
-        predicted = [t for t, s in scored_predicted]
+            predicted = [t for t, s in scored_predicted]
 
-        # TODO: SOME PROBLEM may raise here
-        predicted = predicted[:predicted_tag_count]
+            # TODO: SOME PROBLEM may raise here
+            predicted = predicted[:predicted_tag_count]
 
-        evaluation1 = evaluator1.update(orignal, predicted)
-        evaluation2 = evaluator2.update(orignal, predicted)
-        log_message = "\nOriginal Result: %s\n"\
-                      "Predicted Result: %s\n"\
-                      "Evaluation 1: P: %f, R: %f\n"\
-                      "Evaluation 2: P: %f, R: %f\n" % (
-                            str(to_named_tags(orignal, tags_info)),
-                            str(to_named_tags(predicted, tags_info)),
-                            evaluation1[0], evaluation1[1],
-                            evaluation2[0], evaluation2[1])
-        LOGGER.info(log_message)
+            evaluation1 = evaluator1.update(orignal, predicted)
+            evaluation2 = evaluator2.update(orignal, predicted)
+            log_message = "\nOriginal Result: %s\n"\
+                          "Predicted Result: %s\n"\
+                          "Evaluation 1: P: %f, R: %f\n"\
+                          "Evaluation 2: P: %f, R: %f\n" % (
+                                str(to_named_tags(orignal, tags_info)),
+                                str(to_named_tags(predicted, tags_info)),
+                                evaluation1[0], evaluation1[1],
+                                evaluation2[0], evaluation2[1])
+            LOGGER.info(log_message)
+        except Exception as e:
+            LOGGER.error("Error occurs %s" % (str(e)))
     LOGGER.info("KL Distance Evaluation P & R: %s" % str(evaluator1.get_evaluation()))
     LOGGER.info("Basket Evaluation P & R: %s" % str(evaluator2.get_evaluation()))
 
