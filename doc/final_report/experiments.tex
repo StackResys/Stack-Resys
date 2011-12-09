@@ -9,16 +9,15 @@ In our experiments, precision and recall are the metrics to evaluation the predi
 $$ \text{Precision}=\frac{tp}{tp+fp}, \text{Recall}=\frac{tp}{tp+fn} $$
 where $tp$ is the number of true positive samples, $fp$ is the number of false positive samples and $fn$ is the number of false negative samples.
 
-[TODO: Check the wording]
+As we mentioned in \emph{Introduction}, the big challenge of tag prediction is that tags are often quite subjective and incomplete. As a result, it will be problematic to conclude that a tag is "correctly" predicted only when it appears in user-defined tags. For example, if a question is tagged with "java" but predicted tag is "jdk", we still believe it is a \emph{"good"} prediction because in real life, "jdk" is closed related with "java".
 
-A challenge of tag prediction is, as we mentioned in \emph{Introduction}, tags are often quite subjective and incomplete. So it will be problematic to conclude that a tag is a "correctly" predicted only when it appears in user-defined tags. For example, if a question is tagged with "java" and predicted tag is "jdk", we still believe it is a \emph{"good"} prediction because in common sense, "jdk" are often closed related with "java".
+Thus, instead of measure the "goodness" of a tag with only \emph{match/unmatch}, we assign each predicted tag with a relevance score $s, s \in [0, 1]$. The higher the score, the more
+relevant two tags are.
 
-Thus, instead of measure the "goodness" of a tag with only two value ${0, 1}$, we will assign each predicted tag with a relevance score $s, s \in [0, 1]$. If a predicted tag appeared in the user-defined tags, its score will be $1$, if it has no relation with any user-defined tag, its score will be $0$.
-
-To get the relevance score $s$, we proposed two methods to calculate it:
+To get the relevance score $s$, we proposed two methods:
 \begin{itemize}
-    \item{Kullback-Leibler divergence}: Kullback–Leibler is an asymmetric measure of the difference between two probability distributions $P$ and $Q$. In our case, we can treat each tag has a \emph{word distribution} and we assume that similiar tags will often have similiar word distribution.
-    \item{Co-occurrence rate}: an alternative way for the similarity measurement is to calcualte the co-occurrence rate between predicted tags and user-defined tags. Co-occurrence is asymmetrical and is very suitable to infer from sub-type tag to parent-type tag. For example, with co-occurrence rate, the predicted tag "jdk" is very relevant to user-defined tag "java". However, the co-occurrence rate from "java" to "jdk" will be much smaller.
+    \item{Kullback-Leibler divergence}: Kullback–Leibler is an asymmetric measure of the difference between two probability distributions $P$ and $Q$. In our case, each tag has a corresponding \emph{word distribution} and we assume that similar tags will often have similar word distribution.
+    \item{Co-occurrence rate}: an alternative way for the similarity measurement is to calculate the co-occurrence rate between predicted tags and user-defined tags. Co-occurrence is asymmetrical and is very suitable to infer from sub-type tag to parent-type tag. For example, with co-occurrence rate, the predicted tag "jdk" is very relevant to user-defined tag "java". However, the co-occurrence rate from "java" to "jdk" will be much smaller.
 \end{itemize}
 
 These tools enable automatic test and thus ease the evaluation on large test set.
