@@ -1,21 +1,27 @@
 \section{Experiments}
 
-\subsection{Dataset and Evaluation Method}
-The dataset we used in our experiments is provided by StackOverflow.com. Currently, there are 2.2 million questions, 4.8 millions answers, over 35 thousands tags in this dataset\cite{DataDump}.
+\subsection{Dataset and Evaluation Methods}
+The dataset used in our experiments is provided by StackOverflow.com. Currently, there are 2.2 million questions, 4.8 millions answers, over 35 thousands tags in this dataset\cite{DataDump}.
 
-We prepared 1,050,000 posts(a post is either a question or an answer)  as the training data $S_{train}$, and randomly sampled 500 posts along the timeline as our test dataset $S_{test}$.
+We prepared 1,050,000 posts (a post is either a question or an answer)  as the training data $S_{train}$. Also we randomly sampled 5 groups of test data, each with 1000 posts.$S_{test}^i, i \in [1, 5]$.
 
-We use the precision and recall as the metrics to evaluation the classification methods.
-$$ \text{Precision}=\frac{tp}{tp+fp} $$
-$$ \text{Recall}=\frac{tp}{tp+fn} $$
-where $tp$ is the count of true positive, $fp$ the false positive and $fn$ the false negative.
+In our experiments, precision and recall are the metrics to evaluation the predicted results. Here is the definition of the \emph{precision} and \emph{recall}:
+$$ \text{Precision}=\frac{tp}{tp+fp}, \text{Recall}=\frac{tp}{tp+fn} $$
+where $tp$ is the number of true positive samples, $fp$ is the number of false positive samples and $fn$ is the number of false negative samples.
 
-Currently we manually check the precision of the predicted tags in the test set. This is quite a challenging work because as we discussed in introduction, tags are often quite subjective and incomplete. So it will be inappropriate to require our predicted tags to be exactly the same as the user-defined tags. Thus, we should read the questions and measure the quality of the tag by common sense. 
+[TODO: Check the wording]
 
-In this mile-stone, we manually check the results of naive Bayes classifier. In the next step, we will also trying to develop some tools that could ease our checking process. For example, now we have developed a tag similarity calculator based on Kullback-Leibler distance, a method that could determine how similar two 
-distributions. In our case, each tag will have a corresponding word distribution $P(word|tag)$. Similar tags often have similar word distribution. For example, the $Distance(eclipse, java)$ is small while $Distance(lisp, eclipse)$ is much bigger.
+A challenge of tag prediction is, as we mentioned in \emph{Introduction}, tags are often quite subjective and incomplete. So it will be problematic to conclude that a tag is a "correctly" predicted only when it appears in user-defined tags. For example, if a question is tagged with "java" and predicted tag is "jdk", we still believe it is a \emph{"good"} prediction because in common sense, "jdk" are often closed related with "java".
 
-With these tool we hope in the next step we can semi-automate or automate the evaluation process.
+Thus, instead of measure the "goodness" of a tag with only two value ${0, 1}$, we will assign each predicted tag with a relevance score $s, s \in [0, 1]$. If a predicted tag appeared in the user-defined tags, its score will be $1$, if it has no relation with any user-defined tag, its score will be $0$.
+
+To get the relevance score $s$, we proposed two methods to calculate it:
+\begin{itemize}
+    \item{Kullback-Leibler divergence}: Kullback–Leibler is an asymmetric measure of the difference between two probability distributions $P$ and $Q$. In our case, we can treat each tag has a \emph{word distribution} and we assume that similiar tags will often have similiar word distribution.
+    \item{Co-occurrence rate}: an alternative way for the similarity measurement is to calcualte the co-occurrence rate between predicted tags and user-defined tags. Co-occurrence is asymmetrical and is very suitable to infer from sub-type tag to parent-type tag. For example, with co-occurrence rate, the predicted tag "jdk" is very relevant to user-defined tag "java". However, the co-occurrence rate from "java" to "jdk" will be much smaller.
+\end{itemize}
+
+These tools enable automatic test and thus ease the evaluation on large test set.
 
 \subsection{Experimental Results}
 \subsubsection{Naive Bayes}
