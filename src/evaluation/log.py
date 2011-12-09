@@ -2,7 +2,6 @@
     logger created from the config file """
 
 import logging
-import os
 
 def _create_logger_from_config():
     """ Create the logger from the config file """
