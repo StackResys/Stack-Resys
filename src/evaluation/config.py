@@ -12,5 +12,5 @@ CLASSIFIER = {
     "retrain_model": False,
     "beta" : 0.5,
     "train_count": 300000,
-    "sample_count": 5000
+    "sample_count": 50
 }

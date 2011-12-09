@@ -2,6 +2,8 @@
 
 import math
 import evaluator
+import pickle
+import os
 
 def get_kl_distance(counts1, counts2):
     """ Get KL distance of two items
@@ -52,10 +54,20 @@ def normalize_distance(distance):
 
 class KLDistanceEvaluator(evaluator.Evaluator):
     """ This evauator use KL-distance to evaluate the similarity """
-    def __init__(self, tag_count, tag_word_count, _):
+    def __init__(self, tag_count, tag_word_count, saved_file = ""):
         evaluator.Evaluator.__init__(self)
         self.tag_count = tag_count
         self.tag_word_count = tag_word_count
 
+        self.similarities = {}
+        self.saved_file = saved_file
+        if saved_file != "" and os.path.exists(saved_file):
+            self.similarities = pickle.load(open(saved_file, "rb"))
+    def save_evaluator(self, saved_file):
+        pickle.dump(self.similarities, open(saved_file, "wb"))
+
     def get_similarity(self, tag1, tag2):
-        return get_tag_similarity(self.tag_word_count, tag1, tag2)
+        key = (tag1, tag2)
+        if key not in self.similarities:
+            self.similarities[key] = get_tag_similarity(self.tag_word_count, tag1, tag2)
+        return self.similarities[key]
