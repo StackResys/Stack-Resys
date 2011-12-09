@@ -1,0 +1,71 @@
+# Naive bayes without reranking
+Average KL Precision 0.480556 Average KL Recall 0.447986
+Average basket Precision 0.346831 Average basket Recall 0.358211
+Average KL Precision 0.426503 Average KL Recall 0.455099
+Average basket Precision 0.302237 Average basket Recall 0.369623
+Average KL Precision 0.383751 Average KL Recall 0.494108
+Average basket Precision 0.261648 Average basket Recall 0.412293
+Average KL Precision 0.348973 Average KL Recall 0.535115
+Average basket Precision 0.229186 Average basket Recall 0.458006
+Average KL Precision 0.322981 Average KL Recall 0.568587
+Average basket Precision 0.204858 Average basket Recall 0.495870
+Average KL Precision 0.302737 Average KL Recall 0.594717
+Average basket Precision 0.186056 Average basket Recall 0.524704
+
+# Naive bayes with reranking
+Average KL Precision 0.603325 Average KL Recall 0.564080
+Average basket Precision 0.425420 Average basket Recall 0.526921
+Average KL Precision 0.539703 Average KL Recall 0.553302
+Average basket Precision 0.355590 Average basket Recall 0.501287
+Average KL Precision 0.479340 Average KL Recall 0.567096
+Average basket Precision 0.297206 Average basket Recall 0.511804
+Average KL Precision 0.427233 Average KL Recall 0.581028
+Average basket Precision 0.252576 Average basket Recall 0.524049
+Average KL Precision 0.386705 Average KL Recall 0.595423
+Average basket Precision 0.221191 Average basket Recall 0.537129
+Average KL Precision 0.354923 Average KL Recall 0.608961
+Average basket Precision 0.197967 Average basket Recall 0.550036
+
+# knn with 30 neighbours
+Average KL Precision 0.461065 Average KL Recall 0.524252
+Average basket Precision 0.357575 Average basket Recall 0.447122
+Average KL Precision 0.397993 Average KL Recall 0.514247
+Average basket Precision 0.303474 Average basket Recall 0.458995
+Average KL Precision 0.348877 Average KL Recall 0.532304
+Average basket Precision 0.254360 Average basket Recall 0.478765
+Average KL Precision 0.306406 Average KL Recall 0.546904
+Average basket Precision 0.214658 Average basket Recall 0.492936
+Average KL Precision 0.273955 Average KL Recall 0.557136
+Average basket Precision 0.186007 Average basket Recall 0.502379
+Average KL Precision 0.250158 Average KL Recall 0.566846
+Average basket Precision 0.165279 Average basket Recall 0.511440
+
+# knn with 20 neighbours
+Average KL Precision 0.423237 Average KL Recall 0.514613
+Average basket Precision 0.338499 Average basket Recall 0.465540
+Average KL Precision 0.374871 Average KL Recall 0.508265
+Average basket Precision 0.292080 Average basket Recall 0.455870
+Average KL Precision 0.323726 Average KL Recall 0.518465
+Average basket Precision 0.241854 Average basket Recall 0.462636
+Average KL Precision 0.281922 Average KL Recall 0.528980
+Average basket Precision 0.202772 Average basket Recall 0.470286
+Average KL Precision 0.252528 Average KL Recall 0.538945
+Average basket Precision 0.175620 Average basket Recall 0.477623
+Average KL Precision 0.231569 Average KL Recall 0.548749
+Average basket Precision 0.156551 Average basket Recall 0.486719
+
+# Baseline method
+Average KL Precision 0.214604 Average KL Recall 0.284671
+Average basket Precision 0.138237 Average basket Recall 0.203543
+Average KL Precision 0.198937 Average KL Recall 0.303771
+Average basket Precision 0.126701 Average basket Recall 0.220449
+Average KL Precision 0.175694 Average KL Recall 0.330460
+Average basket Precision 0.109397 Average basket Recall 0.244799
+Average KL Precision 0.155136 Average KL Recall 0.356486
+Average basket Precision 0.095059 Average basket Recall 0.269018
+Average KL Precision 0.139750 Average KL Recall 0.378863
+Average basket Precision 0.084480 Average basket Recall 0.289748
+Average KL Precision 0.128480 Average KL Recall 0.399006
+Average basket Precision 0.076568 Average basket Recall 0.308553
+
+
