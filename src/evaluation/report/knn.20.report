@@ -1,0 +1,246 @@
+=====================
+Running Test with tag 3
+*********************
+Running Test 0
+		Basket Precision 0.284361
+		Basket Recall 0.382281
+------
+		Basket Precision 0.385051
+		Basket Recall 0.450658
+*********************
+Running Test 1
+		Basket Precision 0.278130
+		Basket Recall 0.381085
+------
+		Basket Precision 0.379290
+		Basket Recall 0.451354
+*********************
+Running Test 2
+		Basket Precision 0.274981
+		Basket Recall 0.376270
+------
+		Basket Precision 0.377051
+		Basket Recall 0.448479
+*********************
+Running Test 3
+		Basket Precision 0.275373
+		Basket Recall 0.375484
+------
+		Basket Precision 0.376817
+		Basket Recall 0.447146
+*********************
+Running Test 4
+		Basket Precision 0.276070
+		Basket Recall 0.376338
+------
+		Basket Precision 0.378060
+		Basket Recall 0.447804
+	Average KL Precision 0.379254
+	Average KL Recall 0.449088
+	Average basket Precision 0.277783
+	Average basket Recall 0.378291
+=====================
+Running Test with tag 5
+*********************
+Running Test 0
+		Basket Precision 0.265117
+		Basket Recall 0.387278
+------
+		Basket Precision 0.366907
+		Basket Recall 0.458060
+*********************
+Running Test 1
+		Basket Precision 0.255762
+		Basket Recall 0.394700
+------
+		Basket Precision 0.357825
+		Basket Recall 0.466147
+*********************
+Running Test 2
+		Basket Precision 0.249266
+		Basket Recall 0.400037
+------
+		Basket Precision 0.351770
+		Basket Recall 0.471350
+*********************
+Running Test 3
+		Basket Precision 0.244362
+		Basket Recall 0.403119
+------
+		Basket Precision 0.346851
+		Basket Recall 0.474923
+*********************
+Running Test 4
+		Basket Precision 0.240431
+		Basket Recall 0.406385
+------
+		Basket Precision 0.343092
+		Basket Recall 0.478082
+	Average KL Precision 0.353289
+	Average KL Recall 0.469712
+	Average basket Precision 0.250988
+	Average basket Recall 0.398304
+=====================
+Running Test with tag 10
+*********************
+Running Test 0
+		Basket Precision 0.230300
+		Basket Recall 0.416173
+------
+		Basket Precision 0.331689
+		Basket Recall 0.487373
+*********************
+Running Test 1
+		Basket Precision 0.221433
+		Basket Recall 0.423375
+------
+		Basket Precision 0.321880
+		Basket Recall 0.494741
+*********************
+Running Test 2
+		Basket Precision 0.214061
+		Basket Recall 0.429184
+------
+		Basket Precision 0.313880
+		Basket Recall 0.500676
+*********************
+Running Test 3
+		Basket Precision 0.207824
+		Basket Recall 0.434218
+------
+		Basket Precision 0.306935
+		Basket Recall 0.505980
+*********************
+Running Test 4
+		Basket Precision 0.202295
+		Basket Recall 0.438460
+------
+		Basket Precision 0.300813
+		Basket Recall 0.510229
+	Average KL Precision 0.315040
+	Average KL Recall 0.499800
+	Average basket Precision 0.215183
+	Average basket Recall 0.428282
+=====================
+Running Test with tag 15
+*********************
+Running Test 0
+		Basket Precision 0.195540
+		Basket Recall 0.444996
+------
+		Basket Precision 0.292961
+		Basket Recall 0.516709
+*********************
+Running Test 1
+		Basket Precision 0.189410
+		Basket Recall 0.450345
+------
+		Basket Precision 0.285892
+		Basket Recall 0.522196
+*********************
+Running Test 2
+		Basket Precision 0.184006
+		Basket Recall 0.454626
+------
+		Basket Precision 0.279757
+		Basket Recall 0.526642
+*********************
+Running Test 3
+		Basket Precision 0.179206
+		Basket Recall 0.458622
+------
+		Basket Precision 0.274182
+		Basket Recall 0.530860
+*********************
+Running Test 4
+		Basket Precision 0.174898
+		Basket Recall 0.462527
+------
+		Basket Precision 0.269192
+		Basket Recall 0.534669
+	Average KL Precision 0.280397
+	Average KL Recall 0.526215
+	Average basket Precision 0.184612
+	Average basket Recall 0.454223
+=====================
+Running Test with tag 20
+*********************
+Running Test 0
+		Basket Precision 0.170309
+		Basket Recall 0.467821
+------
+		Basket Precision 0.263767
+		Basket Recall 0.539763
+*********************
+Running Test 1
+		Basket Precision 0.166015
+		Basket Recall 0.472270
+------
+		Basket Precision 0.258696
+		Basket Recall 0.544250
+*********************
+Running Test 2
+		Basket Precision 0.162111
+		Basket Recall 0.476083
+------
+		Basket Precision 0.254174
+		Basket Recall 0.548037
+*********************
+Running Test 3
+		Basket Precision 0.158551
+		Basket Recall 0.479465
+------
+		Basket Precision 0.249977
+		Basket Recall 0.551527
+*********************
+Running Test 4
+		Basket Precision 0.155310
+		Basket Recall 0.483006
+------
+		Basket Precision 0.246129
+		Basket Recall 0.554996
+	Average KL Precision 0.254548
+	Average KL Recall 0.547715
+	Average basket Precision 0.162459
+	Average basket Recall 0.475729
+=====================
+Running Test with tag 25
+*********************
+Running Test 0
+		Basket Precision 0.152040
+		Basket Recall 0.487198
+------
+		Basket Precision 0.242231
+		Basket Recall 0.558999
+*********************
+Running Test 1
+		Basket Precision 0.148908
+		Basket Recall 0.490787
+------
+		Basket Precision 0.238499
+		Basket Recall 0.562589
+*********************
+Running Test 2
+		Basket Precision 0.146025
+		Basket Recall 0.494008
+------
+		Basket Precision 0.235139
+		Basket Recall 0.565736
+*********************
+Running Test 3
+		Basket Precision 0.143379
+		Basket Recall 0.497109
+------
+		Basket Precision 0.231991
+		Basket Recall 0.568765
+*********************
+Running Test 4
+		Basket Precision 0.140899
+		Basket Recall 0.500029
+------
+		Basket Precision 0.229016
+		Basket Recall 0.571605
+	Average KL Precision 0.235375
+	Average KL Recall 0.565539
+	Average basket Precision 0.146250
+	Average basket Recall 0.493826
