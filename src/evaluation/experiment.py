@@ -88,19 +88,14 @@ if __name__ == "__main__":
     EXPERIMENT_CONFIG = {
         "classifier": "naive_bayes",
         "evaluator_file": "../../data/stat",
-        # TODO
-        # "predicted_tag_count": [3, 5, 10, 15, 20, 25],
-        "predicted_tag_count": [10],
+        "predicted_tag_count": [3, 5, 10, 15, 20, 25],
         "tags_info": tags_info,
         "words_info": words_info,
-        # TODO
-        "should_rerank": True,
+        "should_rerank": False,
         "rounds": 5,
         "sample_count": 10,
-        #"NAME": "knn.20.new.stat",
-        "NAME": "random2.stat",
-        # TODO
-        "is_from_classifier": True
+        "NAME": "knn.30.new.stat",
+        "is_from_classifier": False
     }
 
     # Generate the classifier
