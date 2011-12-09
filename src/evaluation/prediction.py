@@ -58,16 +58,16 @@ def get_test_samples():
 def get_sample_results_by_naive_bayes(classifier, tags_info, words_info):
     """ This generator will read the test samples and
         return a sequence of predicted results.  """
-    LOGGER.info("Creating the naive bayes classifier...")
+    LOGGER.debug("Creating the naive bayes classifier...")
     classifier = create_classifier(tags_info, words_info)
 
     # Getting the test samples
-    LOGGER.info("Start to process the samples")
+    LOGGER.debug("Start to process the samples")
     test_samples = get_test_samples()
 
     # Start to process the test samples
     for line in test_samples:
-        LOGGER.info("Processing sample...")
+        LOGGER.debug("Processing sample...")
 
         # -- Parse the records
         # Each line of the sample is make up by three parts
@@ -83,7 +83,7 @@ def get_sample_results_by_naive_bayes(classifier, tags_info, words_info):
         tags = to_ints(segments[2].split(), lambda t: t in tags_info)
 
         # -- Classifying
-        LOGGER.info("Classifying sample %s..." % segments[0])
+        LOGGER.debug("Classifying sample %s..." % segments[0])
         tags_with_score = classifier.classify(words)
 
         yield tags, tags_with_score

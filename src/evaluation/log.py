@@ -9,7 +9,7 @@ def _create_logger_from_config():
         "name": "StackLogger",
         "log_file": "logs/experiment.log",
         "format": "%(asctime)s %(levelname)s \n  >>> %(message)s",
-        "level": logging.DEBUG
+        "level": logging.INFO
     }
 
     logging.basicConfig(format=conf["format"])

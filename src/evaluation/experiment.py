@@ -5,6 +5,7 @@ import os
 import config
 import prediction
 import kl_distance
+import sys
 from basket_analysis import *
 from log import LOGGER
 
@@ -87,14 +88,19 @@ if __name__ == "__main__":
     EXPERIMENT_CONFIG = {
         "classifier": "naive_bayes",
         "evaluator_file": "../../data/stat",
-        "predicted_tag_count": [3, 5, 10, 15, 20, 25],
+        # TODO
+        # "predicted_tag_count": [3, 5, 10, 15, 20, 25],
+        "predicted_tag_count": [10],
         "tags_info": tags_info,
         "words_info": words_info,
-        "should_rerank": False,
+        # TODO
+        "should_rerank": True,
         "rounds": 5,
-        "sample_count": 1000,
+        "sample_count": 10,
         #"NAME": "knn.20.new.stat",
-        "NAME": "random1.stat",
+        "NAME": "random2.stat",
+        # TODO
+        "is_from_classifier": True
     }
 
     # Generate the classifier
@@ -122,9 +128,11 @@ if __name__ == "__main__":
     group_count = EXPERIMENT_CONFIG["rounds"]
 
     for predicted_tag_count in EXPERIMENT_CONFIG["predicted_tag_count"]:
-        predict_results = prediction.get_sample_results_by_naive_bayes(
-                classifier, tags_info, words_info):
-        # prediction.get_predicted_results_from_file(EXPERIMENT_CONFIG["NAME"])
+        if EXPERIMENT_CONFIG["is_from_classifier"]:
+            predict_results = prediction.get_sample_results_by_naive_bayes(
+                    classifier, tags_info, words_info)
+        else:
+            predict_results = prediction.get_predicted_results_from_file(EXPERIMENT_CONFIG["NAME"])
         kl_precision = 0
         kl_recall = 0
         basket_precision = 0
