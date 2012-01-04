@@ -4,6 +4,7 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{url}
+\usepackage{multirow}
 %\documentstyle[nips10submit_09,times,art10]{article} % For LaTeX 2.09
 
 
@@ -19,7 +20,10 @@
 \maketitle
 
 \begin{abstract}
-Under construction
+In a tagging system, users can add metadata in the form of keywords to shared content. In these years, tagging system has been widely used in many websites that highlights user-generated content. In this project, we focus on the tags prediction of a untagged document.Specifically, we apply our prediction methods to StackOverflow.com, the world's largest programmer Q\&A community.
+
+In this project, we address these problem by Naive Bayes model and k Nearest Neighbors model. Especially, with the analysis of the strength and weakness of the original approaches, we proposed improvements on both models, which significantly promoted the overall performance of the tag prediction. As the experimental results indicates, the proposed models outperformed the baseline method by over 20\% in both recall and precision.
+
 \end{abstract}
 
 \input{introduction}
@@ -29,6 +33,8 @@ Under construction
 \input{recommendation}
 
 \input{experiments}
+
+\input{future_work}
 
 \small{
 \bibliography{ref}
