@@ -94,7 +94,7 @@ if __name__ == "__main__":
         "should_rerank": False,
         "rounds": 5,
         "sample_count": 10,
-        "NAME": "knn.30.new.stat",
+        "NAME": "knn.100.stat",
         "is_from_classifier": False
     }
 
@@ -143,11 +143,13 @@ if __name__ == "__main__":
                                         predicted_tag_count)
             print "*********************"
             print "Running Test %d" % index
+            """
             print "\t\tBasket Precision %f" % evaluation[0][0]
             print "\t\tBasket Recall %f" % evaluation[0][1]
             print "------"
-            print "\t\tBasket Precision %f" % evaluation[1][0]
-            print "\t\tBasket Recall %f" % evaluation[1][1]
+            """
+            print "\t\KL Precision %f" % evaluation[1][0]
+            print "\t\KL Recall %f" % evaluation[1][1]
             sys.stdout.flush()
             kl_precision += evaluation[1][0]
             kl_recall += evaluation[1][1]
